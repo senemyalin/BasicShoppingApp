@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     List<String> categoryName;
     List<Integer> categoryImage;
     List<String> categoryDescription;
-    //List<String> categoryGoButton;
+   // List<String> categoryGoButton;
 
     CategoryAdapter categoryAdapter;
 
@@ -30,13 +30,11 @@ public class MainActivity extends AppCompatActivity {
         categoryName = new ArrayList<>();
         categoryImage = new ArrayList<>();
         categoryDescription = new ArrayList<>();
+     //   categoryGoButton = new ArrayList<>();
 
-        categoryName.add("Vegan");
-        categoryName.add("Fresh Bakery");
-        categoryName.add("Snacks");
-        categoryName.add("Baverages");
-        categoryName.add("Fruits & Veg");
-        categoryName.add("Fit & Form");
+        for(Category category : Category.values()){
+            categoryName.add(category.toString());
+        }
 
         categoryImage.add(R.mipmap.ic_category_vegan_round);
         categoryImage.add(R.mipmap.ic_category_vegan_round);

@@ -10,13 +10,13 @@
         android:id="@+id/textView_food"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="monospace"
         android:background="@color/black"
-        android:textColor="@color/white"
+        android:fontFamily="monospace"
         android:gravity="center"
         android:shadowColor="#9C2D2D"
-        android:text="F O O D"
+        android:text="F O O D S"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,6 +29,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_food"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Categories"
         app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView_Categories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Categories"
+        android:fontFamily="@font/chewyregular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_food" />
 </androidx.constraintlayout.widget.ConstraintLayout>

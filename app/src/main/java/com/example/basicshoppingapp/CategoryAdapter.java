@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,7 +36,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull CategoryAdapter.ViewHolder holder, int position) {
-        holder.category_name.setText(category_names.get(position));
+        holder.category_name.setText(Category.values()[position].toString());
         holder.category_description.setText(category_descriptions.get(position));
         holder.category_image.setImageResource(category_images.get(position));
     }

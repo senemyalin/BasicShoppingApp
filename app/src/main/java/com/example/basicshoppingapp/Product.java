@@ -6,7 +6,7 @@ public class Product {
 
     private Bitmap image;
     private String name;
-    private Category category;
+    private Market market;
     private double price;
 
     public Bitmap getImage() {
@@ -25,12 +25,12 @@ public class Product {
         this.name = name;
     }
 
-    public Category getCategory() {
-        return category;
+    public Market getCategory() {
+        return market;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategory(Market market) {
+        this.market = market;
     }
 
     public double getPrice() {

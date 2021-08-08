@@ -1,20 +1,24 @@
 package com.example.basicshoppingapp;
 
 public enum Category {
-    A101 (1),
-    BIM (2),
-    SOK (3),
-    YEMEKSEPETI_BANABI (4),
-    GETIR (5),
-    MIGROS (6);
+    Vegan ("Vegan"),
+    Fresh_Bakery ("Fresh Bakery"),
+    Snacks ("Snacks") ,
+    Beverages ("Beverages"),
+    Fruits_Veg ("Fruits & Veg"),
+    Fit_Form ("Fit & Form");
 
-    private int categorySeq;
+    public String category_string;
 
-    Category(int categorySeq){
-        this.categorySeq = categorySeq;
+    Category(String category_string){
+        this.category_string = category_string;
     }
 
-    public int getCategory(){
-        return categorySeq;
+    public boolean equalsName(String stringName) {
+        return category_string.equals(stringName);
+    }
+
+    public String toString() {
+        return this.category_string;
     }
 }

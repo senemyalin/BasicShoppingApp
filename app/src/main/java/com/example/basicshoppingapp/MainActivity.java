@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         categoryImage.add(R.mipmap.ic_category_vegan_round);
         categoryImage.add(R.mipmap.ic_category_vegan_round);
 
-        categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
-        categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
+        categoryDescription.add("This is an category explanation. This is an category explanation. This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
+        categoryDescription.add("This is an category explanation. This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
         categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
         categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
         categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");

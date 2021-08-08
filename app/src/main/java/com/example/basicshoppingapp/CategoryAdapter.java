@@ -19,6 +19,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     List<String> category_descriptions;
     LayoutInflater inflater;
 
+
     public CategoryAdapter(Context ctx, List<String> category_names, List<Integer> category_images, List<String> category_descriptions){
         this.category_names = category_names;
         this.category_images = category_images;

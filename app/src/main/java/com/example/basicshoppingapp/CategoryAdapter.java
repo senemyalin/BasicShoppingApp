@@ -1,6 +1,7 @@
 package com.example.basicshoppingapp;
 
 import android.content.Context;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             category_name = itemView.findViewById(R.id.txt_category_name);
             category_description = itemView.findViewById(R.id.txt_category_description);
             category_image = itemView.findViewById(R.id.img_category_image);
+
 
 
         }

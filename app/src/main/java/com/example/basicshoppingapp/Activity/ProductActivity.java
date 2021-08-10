@@ -1,7 +1,9 @@
-package com.example.basicshoppingapp;
+package com.example.basicshoppingapp.Activity;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.basicshoppingapp.R;
 
 public class ProductActivity extends AppCompatActivity {
 

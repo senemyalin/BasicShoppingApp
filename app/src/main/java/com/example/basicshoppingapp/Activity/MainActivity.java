@@ -1,18 +1,27 @@
-package com.example.basicshoppingapp;
+package com.example.basicshoppingapp.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.basicshoppingapp.FoodFragment;
+import com.example.basicshoppingapp.ProfileFragment;
+import com.example.basicshoppingapp.R;
+import com.example.basicshoppingapp.ShoppingCartFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.jetbrains.annotations.NotNull;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    ImageView img_register;
 
     private BottomNavigationView bottomNavigationView;
     @Override
@@ -24,6 +33,16 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView= findViewById(R.id.bottomNav);
         bottomNavigationView.setOnItemSelectedListener(bottomNavMethod);
         getSupportFragmentManager().beginTransaction().replace(R.id.container,new FoodFragment()).commit();
+
+        img_register = (ImageView)findViewById(R.id.img_register);
+
+        img_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -47,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
 
-                    return false;
+                    return true;
                 }
             };
 

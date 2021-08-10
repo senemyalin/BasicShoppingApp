@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +20,7 @@ public class FoodFragment extends Fragment {
     List<String> categoryDescription;
     // List<String> categoryGoButton;
 
-    CategoryAdapter categoryAdapter;
+    Category.CategoryAdapter categoryAdapter;
 
 
 
@@ -64,7 +63,7 @@ public class FoodFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_food, container, false);
         categoryList = view.findViewById(R.id.recyclerView_category);
 
-        categoryAdapter = new CategoryAdapter(getActivity(), categoryName, categoryImage, categoryDescription);
+        categoryAdapter = new Category.CategoryAdapter(getActivity(), categoryName, categoryImage, categoryDescription);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL,false);
 

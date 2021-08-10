@@ -1,60 +1,55 @@
 package com.example.basicshoppingapp;
 
 import android.os.Bundle;
-import android.widget.Adapter;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.jetbrains.annotations.NotNull;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView categoryList;
-    List<String> categoryName;
-    List<Integer> categoryImage;
-    List<String> categoryDescription;
-   // List<String> categoryGoButton;
-
-    CategoryAdapter categoryAdapter;
-
+    private BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        categoryList = findViewById(R.id.recyclerView_category);
 
-        categoryName = new ArrayList<>();
-        categoryImage = new ArrayList<>();
-        categoryDescription = new ArrayList<>();
-     //   categoryGoButton = new ArrayList<>();
+        bottomNavigationView= findViewById(R.id.bottomNav);
+        bottomNavigationView.setOnItemSelectedListener(bottomNavMethod);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,new FoodFragment()).commit();
 
-        for(Category category : Category.values()){
-            categoryName.add(category.toString());
-        }
-
-        categoryImage.add(R.mipmap.ic_category_vegan_round);
-        categoryImage.add(R.mipmap.ic_category_vegan_round);
-        categoryImage.add(R.mipmap.ic_category_vegan_round);
-        categoryImage.add(R.mipmap.ic_category_vegan_round);
-        categoryImage.add(R.mipmap.ic_category_vegan_round);
-        categoryImage.add(R.mipmap.ic_category_vegan_round);
-
-        categoryDescription.add("This is an category explanation. This is an category explanation. This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
-        categoryDescription.add("This is an category explanation. This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
-        categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
-        categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
-        categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
-        categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
-
-        categoryAdapter = new CategoryAdapter(this, categoryName, categoryImage, categoryDescription);
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL,false);
-
-        categoryList.setLayoutManager(gridLayoutManager);
-        categoryList.setAdapter(categoryAdapter);
     }
+
+    private BottomNavigationView.OnItemSelectedListener bottomNavMethod = new
+            BottomNavigationView.OnItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
+
+                    Fragment fragment = null;
+                    switch (menuItem.getItemId()){
+
+                        case R.id.food:
+                            fragment=new FoodFragment();
+                            break;
+                        case R.id.shoppingcart:
+                            fragment=new ShoppingCartFragment();
+                            break;
+                        case R.id.profile:
+                            fragment=new ProfileFragment();
+                            break;
+                    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+
+                    return false;
+                }
+            };
+
+
 }

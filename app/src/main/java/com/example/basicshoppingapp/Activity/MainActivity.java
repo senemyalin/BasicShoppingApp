@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.shoppingcart:
                             fragment=new ShoppingCartFragment();
-                            txtView.setText("S H O P P I N G C A R T");
+                            txtView.setText("S H O P P I N G ");
+                            txtView.setTextSize(30);
                             break;
                         case R.id.profile:
                             fragment=new ProfileFragment();

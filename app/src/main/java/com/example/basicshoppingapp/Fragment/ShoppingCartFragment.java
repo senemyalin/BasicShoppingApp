@@ -1,4 +1,4 @@
-package com.example.basicshoppingapp;
+package com.example.basicshoppingapp.Fragment;
 
 import androidx.fragment.app.Fragment;
 

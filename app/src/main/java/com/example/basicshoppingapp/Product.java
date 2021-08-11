@@ -2,6 +2,8 @@ package com.example.basicshoppingapp;
 
 import android.graphics.Bitmap;
 
+import com.example.basicshoppingapp.Enum.Market;
+
 public class Product {
 
     private Bitmap image;

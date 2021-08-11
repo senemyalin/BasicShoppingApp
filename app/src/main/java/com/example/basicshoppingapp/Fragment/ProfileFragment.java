@@ -1,4 +1,4 @@
-package com.example.basicshoppingapp;
+package com.example.basicshoppingapp.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import com.example.basicshoppingapp.R;
 
 public class ProfileFragment extends Fragment {
 

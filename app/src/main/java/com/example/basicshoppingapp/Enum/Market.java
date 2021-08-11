@@ -1,4 +1,4 @@
-package com.example.basicshoppingapp;
+package com.example.basicshoppingapp.Enum;
 
 public enum Market {
     A101 (1),

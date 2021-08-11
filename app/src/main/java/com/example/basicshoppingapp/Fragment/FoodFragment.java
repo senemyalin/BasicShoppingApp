@@ -1,4 +1,4 @@
-package com.example.basicshoppingapp;
+package com.example.basicshoppingapp.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.basicshoppingapp.Enum.Category;
+import com.example.basicshoppingapp.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,19 +7,25 @@
     android:background="#B3FBCF"
     tools:context=".Fragment.ProfileFragment">
 
-    <LinearLayout
-        android:layout_width="460dp"
-        android:layout_height="338dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="350dp"
+        android:layout_height="300dp"
         android:orientation="horizontal"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/layout_bg">
 
         <com.mikhaellopez.circularimageview.CircularImageView
-            android:layout_width="match_parent"
+            android:id="@+id/imageView_profile_pic"
+            android:layout_width="wrap_content"
             android:layout_height="160dp"
-            android:layout_marginLeft="150dp"
-            android:src="@tools:sample/avatars"
+            android:src="@drawable/ic_baseline_profile"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:civ_border_color="#3f51b5"
             app:civ_border_width="4dp"
             app:civ_shadow="true"
@@ -27,14 +33,92 @@
             app:civ_shadow_radius="10dp" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:id="@+id/txt_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="200dp"
-            android:text="User Name">
+            android:text="User Name"
+            android:textSize="25dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_profile_pic"
+            tools:layout_editor_absoluteX="89dp"
+            tools:layout_editor_absoluteY="160dp">
 
         </TextView>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/txt_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="e-mail@gmail.com"
+            android:textSize="20dp"
+
+            app:layout_constraintTop_toBottomOf="@id/txt_username"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="15dp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/txt_phonenumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+90 (500) 9** ** **"
+            android:textSize="20dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="12dp"
+
+            app:layout_constraintTop_toBottomOf="@id/txt_email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            >
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/img_email"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="11dp"
+            android:outlineSpotShadowColor="@color/purple_200"
+
+
+            android:src="@android:drawable/sym_action_email"
+            app:layout_constraintEnd_toStartOf="@id/txt_email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_username"></ImageView>
+
+        <ImageView
+            android:id="@+id/img_phonenumber"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+
+            android:src="@android:drawable/stat_sys_phone_call_forward"
+            app:layout_constraintTop_toBottomOf="@id/img_email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/txt_phonenumber">
+
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/img_editprofile"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+
+            android:src="@android:drawable/ic_menu_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/imageView_profile_pic">
+
+        </ImageView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -8,6 +8,7 @@
     tools:context=".Fragment.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/user_constraintLayout"
         android:layout_width="350dp"
         android:layout_height="300dp"
         android:orientation="horizontal"
@@ -15,7 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/layout_bg">
+        android:background="@drawable/layout_bg"
+        >
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/imageView_profile_pic"
@@ -72,6 +74,7 @@
             android:layout_marginRight="70dp"
             android:layout_marginTop="12dp"
 
+
             app:layout_constraintTop_toBottomOf="@id/txt_email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -120,5 +123,89 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/scl_profilelist"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:layout_marginTop="10dp"
+
+
+        app:layout_constraintBottom_toTopOf="@+id/btn_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_constraintLayout"
+        app:layout_constraintVertical_bias="0.365">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            android:layout_marginLeft="10dp">
+
+            <Button
+                android:id="@+id/btn_favourite_products"
+                android:layout_width="390dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/teal_700"
+                android:drawableLeft="@android:drawable/btn_star_big_on"
+
+                android:text="Favourite Products"
+                android:textColor="@color/black">
+
+            </Button>
+
+            <Button
+                android:id="@+id/btn_addresses"
+                android:layout_width="390dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/teal_700"
+
+                android:drawableLeft="@android:drawable/ic_menu_myplaces"
+
+                android:text="Addresses"
+                android:textColor="@color/black"></Button>
+
+            <Button
+
+                android:id="@+id/btn_change_password"
+                android:layout_width="390dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/teal_700"
+
+                android:drawableLeft="@android:drawable/ic_lock_lock"
+
+                android:text="Change Password"
+                android:textColor="@color/black"></Button>
+
+            <Button
+                android:id="@+id/btn_support"
+                android:layout_width="390dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/teal_700"
+                android:drawableLeft="@android:drawable/ic_menu_info_details"
+
+                android:text="Support"
+                android:textColor="@color/black"></Button>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -52,7 +52,7 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/menu"
+        app:menu="@menu/menu_navbar"
         android:layout_alignParentBottom="true"
         android:background="@color/cardview_dark_background"
 

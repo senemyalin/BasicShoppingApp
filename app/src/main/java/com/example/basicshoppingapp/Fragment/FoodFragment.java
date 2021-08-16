@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.basicshoppingapp.Enum.Category;
+import com.example.basicshoppingapp.Activity.MainActivity;
+import com.example.basicshoppingapp.Adapter.CategoryAdapter;
+import com.example.basicshoppingapp.Class.Category;
 import com.example.basicshoppingapp.R;
 
 import java.util.ArrayList;
@@ -18,43 +20,14 @@ import java.util.List;
 public class FoodFragment extends Fragment {
 
     RecyclerView categoryList;
-    List<String> categoryName;
-    List<Integer> categoryImage;
-    List<String> categoryDescription;
-    // List<String> categoryGoButton;
-
-    Category.CategoryAdapter categoryAdapter;
-
+    CategoryAdapter categoryAdapter;
+    List<Category> categories = MainActivity.category;
 
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        categoryName = new ArrayList<>();
-        categoryImage = new ArrayList<>();
-        categoryDescription = new ArrayList<>();
-        //   categoryGoButton = new ArrayList<>();
-
-
-
-        for(Category category : Category.values()){
-            categoryName.add(category.toString());
-        }
-
-        categoryImage.add(R.mipmap.ic_category_vegan_round);
-        categoryImage.add(R.mipmap.ic_category_vegan_round);
-        categoryImage.add(R.mipmap.ic_category_vegan_round);
-        categoryImage.add(R.mipmap.ic_category_vegan_round);
-        categoryImage.add(R.mipmap.ic_category_vegan_round);
-        categoryImage.add(R.mipmap.ic_category_vegan_round);
-
-        categoryDescription.add("This is an category explanation. This is an category explanation. This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
-        categoryDescription.add("This is an category explanation. This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
-        categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
-        categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
-        categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
-        categoryDescription.add("This is an category explanation. It is added because of trying. I wanted to add two more sentences. That is why I kept typing. That is it!");
 
 
     }
@@ -66,12 +39,14 @@ public class FoodFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_food, container, false);
         categoryList = view.findViewById(R.id.recyclerView_category);
 
-        categoryAdapter = new Category.CategoryAdapter(getActivity(), categoryName, categoryImage, categoryDescription);
+        categoryAdapter = new CategoryAdapter((MainActivity) getActivity(), categories);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL,false);
 
         categoryList.setLayoutManager(gridLayoutManager);
         categoryList.setAdapter(categoryAdapter);
+
+
         return view;
     }
 

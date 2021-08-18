@@ -1,14 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.ProductDetailsFragment">
+    android:background="@color/black"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="316dp"
+        android:layout_height="606dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/yellow">
 
-</FrameLayout>
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="72dp"
+            android:layout_height="69dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="5dp"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        <ImageView
+            android:layout_width="206dp"
+            android:layout_height="166dp"
+            android:layout_marginTop="72dp"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayout"
+            app:layout_constraintStart_toStartOf="@id/constraintLayout"
+            app:layout_constraintTop_toTopOf="@id/constraintLayout"
+            app:srcCompat="@drawable/ic_launcher_foreground">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/txt_product_details_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Name"
+            android:textSize="40dp"
+            app:layout_constraintBottom_toTopOf="@id/txt_product_details_market"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayout"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="@id/constraintLayout" />
+
+        <TextView
+            android:id="@+id/txt_product_details_market"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Market"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toTopOf="@id/txt_product_details_details"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayout"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="@id/constraintLayout"></TextView>
+
+        <TextView
+            android:id="@+id/txt_product_details_details"
+            android:layout_width="227dp"
+            android:layout_height="113dp"
+            android:layout_marginBottom="44dp"
+            android:text="Details"
+            app:layout_constraintBottom_toTopOf="@id/btn_product_details_add"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayout"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="@id/constraintLayout"></TextView>
+
+        <TextView
+            android:id="@+id/txt_product_details_price"
+            android:layout_width="235dp"
+            android:layout_height="31dp"
+            android:text="Price"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@id/constraintLayout"
+            app:layout_constraintBottom_toTopOf="@id/btn_product_details_add"
+            app:layout_constraintStart_toStartOf="@id/constraintLayout"
+            tools:layout_editor_absoluteY="492dp"></TextView>
+
+        <Button
+            android:id="@+id/btn_product_details_add"
+            android:layout_width="328dp"
+            android:layout_height="67dp"
+            android:layout_marginBottom="16dp"
+            android:text="Add to Basket"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.595"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

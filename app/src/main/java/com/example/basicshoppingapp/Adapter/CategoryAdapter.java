@@ -1,6 +1,6 @@
 package com.example.basicshoppingapp.Adapter;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.basicshoppingapp.Activity.MainActivity;
-import com.example.basicshoppingapp.Activity.ProductActivity;
-import com.example.basicshoppingapp.Activity.RegisterActivity;
 import com.example.basicshoppingapp.Class.Category;
 import com.example.basicshoppingapp.Class.Product;
+import com.example.basicshoppingapp.Fragment.CategoryFragment;
+import com.example.basicshoppingapp.Fragment.ProductFragment;
 import com.example.basicshoppingapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -67,10 +70,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                         }
                     }
 
-                    Intent intent = new Intent(mainActivity, ProductActivity.class);
-                    ProductActivity.products = chosenProducts;
-                    mainActivity.startActivity(intent);
-
+                    ProductFragment.products = chosenProducts;
+                    ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frame_layout, new ProductFragment()).addToBackStack("Category Fragment")
+                            .commit();
                 }
             });
 

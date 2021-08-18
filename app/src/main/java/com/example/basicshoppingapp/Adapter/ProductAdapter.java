@@ -1,7 +1,6 @@
 package com.example.basicshoppingapp.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.basicshoppingapp.Activity.ProductActivity;
 import com.example.basicshoppingapp.Class.Product;
 import com.example.basicshoppingapp.R;
 import com.squareup.picasso.Picasso;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -51,6 +47,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.product_price.setText(product.get(position).getPrice());
 
         Picasso.get().load(product.get(position).getImage()).into(holder.product_image);
+
 
         holder.add_to_shopping_cart.setOnClickListener(new View.OnClickListener() {
             @Override

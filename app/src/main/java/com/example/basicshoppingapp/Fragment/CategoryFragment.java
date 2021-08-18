@@ -14,10 +14,9 @@ import com.example.basicshoppingapp.Adapter.CategoryAdapter;
 import com.example.basicshoppingapp.Class.Category;
 import com.example.basicshoppingapp.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class FoodFragment extends Fragment {
+public class CategoryFragment extends Fragment {
 
     RecyclerView categoryList;
     CategoryAdapter categoryAdapter;
@@ -36,7 +35,8 @@ public class FoodFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_food, container, false);
+        View view = inflater.inflate(R.layout.fragment_category, container, false);
+
         categoryList = view.findViewById(R.id.recyclerView_category);
 
         categoryAdapter = new CategoryAdapter((MainActivity) getActivity(), categories);

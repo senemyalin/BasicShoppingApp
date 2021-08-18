@@ -2,7 +2,6 @@ package com.example.basicshoppingapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.basicshoppingapp.Class.Category;
 import com.example.basicshoppingapp.Class.Market;
 import com.example.basicshoppingapp.Class.Product;
-import com.example.basicshoppingapp.Fragment.FoodFragment;
+import com.example.basicshoppingapp.Fragment.CategoryFragment;
 import com.example.basicshoppingapp.Fragment.ProfileFragment;
 import com.example.basicshoppingapp.MainResponse;
 import com.example.basicshoppingapp.R;
@@ -52,14 +51,14 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
         getProduct();
+
     }
 
     private void showProducts(){
         bottomNavigationView= findViewById(R.id.bottomNav);
         bottomNavigationView.setOnItemSelectedListener(bottomNavMethod);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,new FoodFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,new CategoryFragment()).commit();
 
         img_register = (ImageView)findViewById(R.id.img_register);
         img_register.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
                         case R.id.food:
 
-                            fragment=new FoodFragment();
+                            fragment=new CategoryFragment();
                             txtView.setText("FOODS");
                             break;
                         case R.id.shoppingcart:

@@ -23,7 +23,6 @@
         </intent-filter>
     </activity>
 
-        <activity android:name=".Activity.ProductActivity" android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".Activity.RegisterActivity" android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 

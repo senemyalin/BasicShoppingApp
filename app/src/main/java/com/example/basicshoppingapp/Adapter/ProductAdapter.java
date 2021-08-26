@@ -9,9 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.basicshoppingapp.Class.Product;
+import com.example.basicshoppingapp.Fragment.ProductDetailsFragment;
+import com.example.basicshoppingapp.Fragment.ProductFragment;
 import com.example.basicshoppingapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -49,11 +52,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         Picasso.get().load(product.get(position).getImage()).into(holder.product_image);
 
 
-        holder.add_to_shopping_cart.setOnClickListener(new View.OnClickListener() {
+        holder.product_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(ProductAdapter.this, ProductActivity.class);
-                //startActivity(intent);
+                ProductDetailsFragment.product = product.get(position);
+                ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.constraintLayout, new ProductDetailsFragment()).addToBackStack("Product Fragment")
+                        .commit();
 
             }
         });

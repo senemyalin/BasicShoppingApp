@@ -13,14 +13,15 @@ import com.example.basicshoppingapp.Class.Product;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShoppingCartAdapter extends BaseAdapter {
 
-    private ArrayList<Product> productShoppingCartList;
+    private List<Product> productShoppingCartList;
 
 
     public ShoppingCartAdapter(Context ctx,
-                               ArrayList<Product> productShoppingCartList) {
+                               List<Product> productShoppingCartList) {
 
         super();
 

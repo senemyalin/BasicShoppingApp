@@ -70,12 +70,14 @@
                 android:src="@android:drawable/ic_menu_add" />
 
             <TextView
-                android:id="@+id/row_install_textView1"
+                android:id="@+id/txt_shoppingcart_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@color/teal_200"
+                android:fontFamily="monospace"
                 android:padding="10dp"
+
                 android:text="1"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#333333" />

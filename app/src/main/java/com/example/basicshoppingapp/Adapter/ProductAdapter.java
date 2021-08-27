@@ -13,8 +13,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.basicshoppingapp.Class.Product;
+import com.example.basicshoppingapp.Class.ProductCount;
 import com.example.basicshoppingapp.Fragment.ProductDetailsFragment;
 import com.example.basicshoppingapp.Fragment.ProductFragment;
+import com.example.basicshoppingapp.Fragment.ShoppingCartFragment;
 import com.example.basicshoppingapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -60,6 +62,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                         .replace(R.id.constraintLayout, new ProductDetailsFragment()).addToBackStack("Product Fragment")
                         .commit();
 
+            }
+        });
+
+        holder.add_to_shopping_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boolean found = false;
+                for(int i=0; i<ShoppingCartFragment.productShoppingCartList.size();i++){
+                    if(product.get(position).getName().equals(ShoppingCartFragment.productShoppingCartList.get(i).getProduct().getName())){
+                        ShoppingCartFragment.productShoppingCartList.get(i).addCount(1);
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    ProductCount product_count = new ProductCount(product.get(position),1);
+                    ShoppingCartFragment.productShoppingCartList.add(product_count);
+                }
             }
         });
 

@@ -13,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.basicshoppingapp.Class.Product;
+import com.example.basicshoppingapp.Class.ProductCount;
 import com.example.basicshoppingapp.R;
 import com.squareup.picasso.Picasso;
+
 
 public class ProductDetailsFragment extends Fragment {
 
@@ -47,8 +49,27 @@ public class ProductDetailsFragment extends Fragment {
         product_name.setText(product.getName());
         product_market.setText(product.getMarket());
         product_price.setText(product.getPrice());
-       //product_details.setText(product.getDetails());
+        product_details.setText(product.getDescription());
         Picasso.get().load(product.getImage()).into(product_image);
+
+        add_to_shopping_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean found = false;
+                for(int i=0; i<ShoppingCartFragment.productShoppingCartList.size();i++){
+                    if(product.getName().equals(ShoppingCartFragment.productShoppingCartList.get(i).getProduct().getName())){
+                        ShoppingCartFragment.productShoppingCartList.get(i).addCount(1);
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    ProductCount product_count = new ProductCount(product,1);
+                    ShoppingCartFragment.productShoppingCartList.add(product_count);
+                }
+            }
+        });
 
 
         return view;

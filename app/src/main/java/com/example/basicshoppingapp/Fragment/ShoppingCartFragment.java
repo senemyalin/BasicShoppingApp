@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class ShoppingCartFragment extends Fragment {
 
-    ShoppingCartAdapter shoppingCartAdapterAdapter;
+    ShoppingCartAdapter shoppingCartAdapter;
     public static List<Product> productShoppingCartList; //listelenen productlar
 
     @Override
@@ -28,14 +29,11 @@ public class ShoppingCartFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_shoppingcart, container, false);
 
+        ListView ShoppingCartList = (ListView) view.findViewById(R.id.shoppingcart_listview);
 
-        productShoppingCartList = view.findViewById(R.id.recyclerView_product);
+        shoppingCartAdapter = new ShoppingCartAdapter(getActivity(), productShoppingCartList);
 
-        shoppingCartAdapterAdapter = new ShoppingCartAdapter(getActivity(), productShoppingCartList);
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
-        productShoppingCartList.setLayoutManager(gridLayoutManager);
-        productShoppingCartList.setAdapter(shoppingCartAdapterAdapter);
+        ShoppingCartList.setAdapter(shoppingCartAdapter);
 
         return view;
     }

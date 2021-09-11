@@ -58,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(!!email.equals("") && !password.equals("")) {
                     progressBar.setVisibility(View.VISIBLE);
-                    //Start ProgressBar first (Set visibility VISIBLE)
 
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable() {
@@ -89,10 +88,8 @@ public class LoginActivity extends AppCompatActivity {
                                     else{
                                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                                     }
-                                    //End ProgressBar (Set visibility to GONE)
                                 }
                             }
-                            //End Write and Read data with URL
                         }
                     });
                 }

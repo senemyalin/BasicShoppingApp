@@ -58,14 +58,11 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if(!fullname.equals("") && !email.equals("") && !password.equals("") && !phonenumber.equals("")) {
                     progressBar.setVisibility(View.VISIBLE);
-                    //Start ProgressBar first (Set visibility VISIBLE)
 
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            //Starting Write and Read data with URL
-                            //Creating array for parameters
                             String[] field = new String[4];
                             field[0] = "fullname";
                             field[1] = "phonenumber";
@@ -93,10 +90,8 @@ public class SignUpActivity extends AppCompatActivity {
                                     else{
                                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                                     }
-                                    //End ProgressBar (Set visibility to GONE)
                                 }
                             }
-                            //End Write and Read data with URL
                         }
                     });
                 }

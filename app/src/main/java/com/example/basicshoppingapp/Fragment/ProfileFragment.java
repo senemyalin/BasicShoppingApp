@@ -37,17 +37,20 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        favourite_products = favourite_products.findViewById(R.id.btn_favourite_products);
-        addresses = addresses.findViewById(R.id.btn_addresses);
-        change_password = change_password.findViewById(R.id.btn_change_password);
-        support = support.findViewById(R.id.btn_support);
-        log_out = log_out.findViewById(R.id.btn_logout);
 
-        name = name.findViewById(R.id.txt_username);
-        email = email.findViewById(R.id.txt_email);
-        phone_number = phone_number.findViewById(R.id.txt_phonenumber);
-        profile_pic = profile_pic.findViewById(R.id.imageView_profile_pic);
-        edit_profile = edit_profile.findViewById(R.id.img_editprofile);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        favourite_products = view.findViewById(R.id.btn_favourite_products);
+        addresses = view.findViewById(R.id.btn_addresses);
+        change_password = view.findViewById(R.id.btn_change_password);
+        support = view.findViewById(R.id.btn_support);
+        log_out = view.findViewById(R.id.btn_logout);
+
+        name = view.findViewById(R.id.txt_username);
+        email = view.findViewById(R.id.txt_email);
+        phone_number = view.findViewById(R.id.txt_phonenumber);
+        profile_pic = view.findViewById(R.id.imageView_profile_pic);
+        edit_profile = view.findViewById(R.id.img_editprofile);
 
 
         favourite_products.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +96,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
     }
 }

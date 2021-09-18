@@ -1,5 +1,6 @@
 package com.example.basicshoppingapp.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,8 +14,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.basicshoppingapp.Class.DatabaseStuff;
 import com.example.basicshoppingapp.R;
-import com.vishnusivadas.advanced_httpurlconnection.PutData;
+
+import org.sql2o.Connection;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -46,67 +49,56 @@ public class SignUpActivity extends AppCompatActivity {
         signup = findViewById(R.id.btn_signup_signup);
         have_acc = findViewById(R.id.txt_have_acc);
 
+
+        Activity activity=this;
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String fullname, email, password, phonenumber;
 
-                fullname = String.valueOf(edt_fullname.getText());
-                email = String.valueOf(edt_email.getText());
-                password = String.valueOf(edt_password.getText());
-                phonenumber = String.valueOf(edt_phonenumber.getText());
+                progressBar.setVisibility(View.VISIBLE);
 
-                if(!fullname.equals("") && !email.equals("") && !password.equals("") && !phonenumber.equals("")) {
-                    progressBar.setVisibility(View.VISIBLE);
+                new Thread(()->{
 
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            String[] field = new String[4];
-                            field[0] = "fullname";
-                            field[1] = "phonenumber";
-                            field[2] = "email";
-                            field[3] = "password";
-                            //Creating array for data
-                            String[] data = new String[4];
-                            data[0] = fullname;
-                            data[1] = email;
-                            data[2] = password;
-                            data[3] = phonenumber;
+                    try(Connection con = DatabaseStuff.sql2o.open()) {
 
-                            PutData putData = new PutData("http://192.168.1.35/LoginRegister/signup.php", "POST", field, data);
-                            if (putData.startPut()) {
-                                if (putData.onComplete()) {
-                                    String result = putData.getResult();
-                                    if(result.equals("Sign Up Success")){
-                                        progressBar.setVisibility(View.GONE);
-                                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                                        if(intent==null){
-                                        intent = new Intent(getApplicationContext(),MainActivity.class);
-                                        startActivity(intent);}
-                                        finish();
-                                    }
-                                    else{
-                                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "All fields required", Toast.LENGTH_SHORT).show();
-                }
+                        System.out.println("this works fine");
+                        String fullname, email, password, phonenumber;
+
+                        fullname = String.valueOf(edt_fullname.getText());
+                        email = String.valueOf(edt_email.getText());
+                        password = String.valueOf(edt_password.getText());
+                        phonenumber = String.valueOf(edt_phonenumber.getText());
+
+                          if (!fullname.equals("") && !email.equals("") && !password.equals("") && !phonenumber.equals("")) {
+
+                            con.createQuery("INSERT INTO users (fullname, email, password, phonenumber) VALUES (:edt_fullname, :edt_email, :edt_password, :edt_phonenumber)").addParameter("edt_fullname",fullname).addParameter("edt_email",email).addParameter("edt_password",password).addParameter("edt_phonenumber",phonenumber).executeUpdate();
+
+                              activity.runOnUiThread(()-> {
+                                progressBar.setVisibility(View.GONE);
+
+                                intent = new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                              });
+
+                        } else {
+                              activity.runOnUiThread(()-> {
+                                Toast.makeText(getApplicationContext(), "All fields required", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                              });
+                          }
+                    }
+                }).start();
+
+
             }
         });
 
         have_acc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(intent==null){
-                    intent = new Intent(getApplicationContext(),LoginActivity.class);
-                    startActivity(intent);}
+                intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
                 finish();
             }
         });

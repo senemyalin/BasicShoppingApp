@@ -52,6 +52,8 @@ public class ProfileFragment extends Fragment {
         profile_pic = view.findViewById(R.id.imageView_profile_pic);
         edit_profile = view.findViewById(R.id.img_editprofile);
 
+        //name.setText();
+
 
         favourite_products.setOnClickListener(new View.OnClickListener() {
             @Override

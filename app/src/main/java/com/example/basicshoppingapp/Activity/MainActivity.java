@@ -2,10 +2,13 @@ package com.example.basicshoppingapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -138,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
                         category = r.getCategories();
                         market = r.getMarkets();
                         product = r.getProducts();
+
 
                         runOnUiThread(new Runnable() {
                             @Override

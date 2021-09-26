@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     protected void getProduct(){
         OkHttpClient client = new OkHttpClient();
 
-        String url="http://denemeler.im/senem/data.json";
+        String url="http://172.20.10.5/LoginRegister/getProducts.php";
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -138,9 +138,9 @@ public class MainActivity extends AppCompatActivity {
                         Gson gson = new GsonBuilder().create();
                         MainResponse r = gson.fromJson(res, MainResponse.class);
 
-                        category = r.getCategories();
-                        market = r.getMarkets();
-                        product = r.getProducts();
+                        category = r.getCategory();
+                        market = r.getMarket();
+                        product = r.getProduct();
 
 
                         runOnUiThread(new Runnable() {

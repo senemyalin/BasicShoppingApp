@@ -15,49 +15,38 @@ import com.google.gson.annotations.SerializedName;
 
 public class MainResponse {
 
-    @SerializedName("status")
+    @SerializedName("product")
     @Expose
-    private String status;
-    @SerializedName("products")
+    private List<Product> product = null;
+    @SerializedName("category")
     @Expose
-    private List<Product> products = null;
-    @SerializedName("categories")
+    private List<Category> category = null;
+    @SerializedName("market")
     @Expose
-    private List<Category> categories = null;
-    @SerializedName("markets")
-    @Expose
-    private List<Market> markets = null;
+    private List<Market> market = null;
 
-    public String getStatus() {
-        return status;
+    public List<Product> getProduct() {
+        return product;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setProduct(List<Product> product) {
+        this.product = product;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Category> getCategory() {
+        return category;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setCategory(List<Category> category) {
+        this.category = category;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public List<Market> getMarket() {
+        return market;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public List<Market> getMarkets() {
-        return markets;
-    }
-
-    public void setMarkets(List<Market> markets) {
-        this.markets = markets;
+    public void setMarket(List<Market> market) {
+        this.market = market;
     }
 
 }

@@ -2,6 +2,8 @@ package com.example.basicshoppingapp.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.basicshoppingapp.Class.DatabaseStuff;
@@ -18,8 +20,14 @@ import com.example.basicshoppingapp.R;
 
 import org.sql2o.Connection;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -33,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
 
+    final String url_Login= "http://172.20.10.5/LoginRegister/login.php";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +51,9 @@ public class LoginActivity extends AppCompatActivity {
 
         edt_email = findViewById(R.id.login_email);
         edt_password = findViewById(R.id.login_password);
+
         login = findViewById(R.id.btn_login);
         register = findViewById(R.id.txt_register);
-        forget_password = findViewById(R.id.txt_forget_password);
-
         progressBar = findViewById(R.id.progressBar_login);
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -55,46 +64,32 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Activity activity=this;
         login.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                // UI thread
-                new Thread(()->{
-                    // secondary thread
-                    try(Connection con=DatabaseStuff.sql2o.open()){
-                        // secondary thread
-                        String email, password;
-                        email = String.valueOf(edt_email.getText());
-                        password = String.valueOf(edt_password.getText());
+                progressBar.setVisibility(View.VISIBLE);
 
-                        if(!email.equals("") && !password.equals("")) {
+                String email, password;
+                email = String.valueOf(edt_email.getText());
+                password = String.valueOf(edt_password.getText());
 
-                            activity.runOnUiThread(()->{progressBar.setVisibility(View.VISIBLE);});
-                            String passwordFromDb = con.createQuery("SELECT password from users where email=:user")
-                                    .addParameter("user", email).executeAndFetchFirst(String.class);
+                if(!email.equals("") && !password.equals("")) {
+                    progressBar.setVisibility(View.GONE);
 
-                            if(passwordFromDb != null && passwordFromDb.equals(password)){
-                                intent = new Intent(getApplicationContext(),MainActivity.class);
+                    new RegisterUser().execute(email, password);
+
+                   intent = new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
                             else {
-                                activity.runOnUiThread(()->{
+
                                 Toast.makeText(getApplicationContext(), "Password is wrong", Toast.LENGTH_SHORT).show();
-                                });
+
                             }
-                        }
-                        else{
-                                activity.runOnUiThread(()->{
-                                    Toast.makeText(getApplicationContext(), "All fields required", Toast.LENGTH_SHORT).show();
-                                });
-                        }
 
-                    }
-
-                }).start();
 
             }
         });
@@ -105,4 +100,75 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    public class RegisterUser extends AsyncTask<String,Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            String email= strings[0];
+            String password=strings[1];
+
+
+            RequestBody formBody = new FormBody.Builder()
+                    .add("email", email)
+                    .add("password", password)
+                    .build();
+
+
+            OkHttpClient okHttpClient=new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(url_Login)
+                    .post(formBody)
+                    .build();
+
+
+            //checking server response and inserting data
+
+            Response response= null;
+            OkHttpClient client = new OkHttpClient();
+
+            try {
+                response= client.newCall(request).execute();
+                if(response.isSuccessful()) {
+                    String result = response.body().string();
+                    showToast(result);
+
+                    if (result.equals("\nLogged in Successfully")) {
+                        showToast("Logged in Successfully");
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    else {
+                        showToast("Email or Password is wrong. Try again.");
+
+                    }
+                }
+                else {
+                    throw new IOException("Unexpected code " + response);
+                }
+
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+    }
+
+    public void showToast(final String Text){
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(LoginActivity.this, Text, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }
+
+
+
+
+
+

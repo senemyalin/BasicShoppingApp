@@ -41,6 +41,7 @@
             android:layout_marginHorizontal="20dp"
             android:text="User Name"
             android:textSize="25dp"
+            android:textColor="@color/black"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,6 +57,7 @@
             android:layout_height="wrap_content"
             android:text="e-mail@gmail.com"
             android:textSize="20dp"
+            android:textColor="@color/black"
 
             app:layout_constraintTop_toBottomOf="@id/txt_username"
             app:layout_constraintEnd_toEndOf="parent"
@@ -73,6 +75,7 @@
             android:textSize="20dp"
             android:layout_marginRight="70dp"
             android:layout_marginTop="12dp"
+            android:textColor="@color/black"
 
 
             app:layout_constraintTop_toBottomOf="@id/txt_email"

@@ -2,17 +2,15 @@ package com.example.basicshoppingapp.Class;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 public class Product {
 
+    @SerializedName("id")
+    @Expose
+    private String id;
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("price")
-    @Expose
-    private String price;
     @SerializedName("market")
     @Expose
     private String market;
@@ -25,6 +23,17 @@ public class Product {
     @SerializedName("description")
     @Expose
     private String description;
+    @SerializedName("price")
+    @Expose
+    private String price;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -32,14 +41,6 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public String getMarket() {
@@ -72,6 +73,14 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
 }

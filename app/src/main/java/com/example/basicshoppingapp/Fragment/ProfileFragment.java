@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.basicshoppingapp.Activity.SignUpActivity;
 import com.example.basicshoppingapp.R;
 
 public class ProfileFragment extends Fragment {
@@ -27,6 +28,7 @@ public class ProfileFragment extends Fragment {
     TextView phone_number;
     ImageView profile_pic;
     ImageView edit_profile;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,6 @@ public class ProfileFragment extends Fragment {
         profile_pic = view.findViewById(R.id.imageView_profile_pic);
         edit_profile = view.findViewById(R.id.img_editprofile);
 
-        //name.setText();
 
 
         favourite_products.setOnClickListener(new View.OnClickListener() {

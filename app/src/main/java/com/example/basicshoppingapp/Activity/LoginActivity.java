@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.basicshoppingapp.Class.DatabaseStuff;
 import com.example.basicshoppingapp.R;
 
+import org.json.JSONObject;
 import org.sql2o.Connection;
 
 import java.io.IOException;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     TextView register;
     TextView forget_password;
+    static int user_ID;
 
     ProgressBar progressBar;
 
@@ -76,19 +78,16 @@ public class LoginActivity extends AppCompatActivity {
                 password = String.valueOf(edt_password.getText());
 
                 if(!email.equals("") && !password.equals("")) {
-                    progressBar.setVisibility(View.GONE);
 
+                    progressBar.setVisibility(View.GONE);
                     new RegisterUser().execute(email, password);
 
-                   intent = new Intent(getApplicationContext(),MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else {
+                }
+                else {
 
-                                Toast.makeText(getApplicationContext(), "Password is wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Password is wrong", Toast.LENGTH_SHORT).show();
 
-                            }
+                }
 
 
             }
@@ -129,10 +128,16 @@ public class LoginActivity extends AppCompatActivity {
                 response= client.newCall(request).execute();
                 if(response.isSuccessful()) {
                     String result = response.body().string();
-                    showToast(result);
+                 //   showToast(result);
 
-                    if (result.equals("\nLogged in Successfully")) {
+                    JSONObject responseJSON = new JSONObject(result);
+                    String message = responseJSON.getString("message");
+                //    showToast(message);
+
+                    if (message.equals("Logged in Successfully")) {
                         showToast("Logged in Successfully");
+                        user_ID = Integer.valueOf(responseJSON.getString("userid"));
+
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();

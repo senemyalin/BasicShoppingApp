@@ -135,7 +135,7 @@ public class RegisterUser extends AsyncTask<String,Void, String> {
 
                 if(result.equals("\nUser registered successfully")){
                     showToast("Registered Successfully");
-                    Intent intent= new Intent(SignUpActivity.this, MainActivity.class);
+                    Intent intent= new Intent(SignUpActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 }

@@ -12,10 +12,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.basicshoppingapp.Activity.LoginActivity;
+import com.example.basicshoppingapp.Adapter.ShoppingCartAdapter;
 import com.example.basicshoppingapp.Class.Product;
 import com.example.basicshoppingapp.Class.ProductCount;
+import com.example.basicshoppingapp.Helper;
 import com.example.basicshoppingapp.R;
+import com.example.basicshoppingapp.Response.AddShoppingCartResponse;
+import com.example.basicshoppingapp.Response.ShoppingCartResponse;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.List;
+
+import static com.example.basicshoppingapp.Adapter.ShoppingCartAdapter.url_add_to_shoppingcart;
 
 
 public class ProductDetailsFragment extends Fragment {
@@ -55,22 +65,32 @@ public class ProductDetailsFragment extends Fragment {
         add_to_shopping_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean found = false;
-                for(int i=0; i<ShoppingCartFragment.productShoppingCartList.size();i++){
-                    if(product.getName().equals(ShoppingCartFragment.productShoppingCartList.get(i).getProduct().getName())){
-                        ShoppingCartFragment.productShoppingCartList.get(i).addCount(1);
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found)
-                {
-                    ProductCount product_count = new ProductCount(product,1);
-                    ShoppingCartFragment.productShoppingCartList.add(product_count);
-                }
+                    if(LoginActivity.user_ID >0){
+
+                        String product_id = product.getId();
+                        new Thread(() -> {
+                            HashMap<String, String> map = new HashMap<>();
+                            map.put("user_id", String.valueOf(LoginActivity.user_ID));
+                            map.put("product_id", product_id);
+                            map.put("count", 1 + "");
+                            AddShoppingCartResponse res = Helper.httpPost(AddShoppingCartResponse.class, url_add_to_shoppingcart, map);
+
+                            if (res == null) {
+                                // give the user an error
+                                return;
+                            }
+                        }).start(); }
             }
         });
 
+        add_to_favourites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // if()
+               // add_to_favourites.setImageResource();
+
+            }
+        });
 
         return view;
 

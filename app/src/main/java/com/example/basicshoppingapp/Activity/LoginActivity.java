@@ -1,6 +1,5 @@
 package com.example.basicshoppingapp.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -15,11 +14,9 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.basicshoppingapp.Class.DatabaseStuff;
 import com.example.basicshoppingapp.R;
 
 import org.json.JSONObject;
-import org.sql2o.Connection;
 
 import java.io.IOException;
 
@@ -39,11 +36,11 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     TextView register;
     TextView forget_password;
-    static int user_ID;
+    public static int user_ID;
 
     ProgressBar progressBar;
 
-    final String url_Login= "http://172.20.10.5/LoginRegister/login.php";
+    final String url_Login= "http://192.168.1.104/LoginRegister/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

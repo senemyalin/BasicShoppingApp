@@ -2,13 +2,10 @@ package com.example.basicshoppingapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +16,7 @@ import com.example.basicshoppingapp.Class.Market;
 import com.example.basicshoppingapp.Class.Product;
 import com.example.basicshoppingapp.Fragment.CategoryFragment;
 import com.example.basicshoppingapp.Fragment.ProfileFragment;
-import com.example.basicshoppingapp.MainResponse;
+import com.example.basicshoppingapp.Response.MainResponse;
 import com.example.basicshoppingapp.R;
 import com.example.basicshoppingapp.Fragment.ShoppingCartFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -110,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     protected void getProduct(){
         OkHttpClient client = new OkHttpClient();
 
-        String url="http://172.20.10.5/LoginRegister/getProducts.php";
+        String url="http://192.168.1.104/LoginRegister/getProducts.php";
         Request request = new Request.Builder()
                 .url(url)
                 .build();

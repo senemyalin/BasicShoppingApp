@@ -15,9 +15,15 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.basicshoppingapp.Class.ProductCount;
+import com.example.basicshoppingapp.Helper;
 import com.example.basicshoppingapp.R;
+import com.example.basicshoppingapp.Response.ShoppingCartResponse;
+import com.example.basicshoppingapp.Response.SignUpResponse;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -39,7 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
     Button signup;
     TextView have_acc;
 
-    final String url_Register= "http://172.20.10.5/LoginRegister/signup.php";
+    final String url_Register= "http://192.168.1.104/LoginRegister/signup.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +81,39 @@ public class SignUpActivity extends AppCompatActivity {
                 if (!fullname.equals("") && !email.equals("") && !password.equals("") && !phonenumber.equals("")) {
                     progressBar.setVisibility(View.GONE);
 
-                    new RegisterUser().execute(fullname, email, password, phonenumber);
+                    new Thread(()->{
+                        HashMap<String, String> map=new HashMap<>();
+                        map.put("fullname",fullname);
+                        map.put("email",email);
+                        map.put("password", password);
+                        map.put("phonenumber", phonenumber);
+
+                        SignUpResponse res= Helper.httpPost(SignUpResponse.class,url_Register,map);
+                        List<String> message = res.getMessage();
+
+                        if(res ==null){
+                            // give the user an error
+                            return;
+                        }
+
+                        if(message.get(0).equals("User registered successfully")){
+                            showToast("Registered Successfully");
+                            Intent intent= new Intent(SignUpActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                        else if (message.get(0).equals("User already exists")){
+                            showToast("User Already Exist");
+
+                        }
+                        else{
+                            showToast("Oops! please try again!");
+                        }
+
+
+                    }).start();
+
 
 
                 }else {
@@ -96,71 +134,6 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
     }
-
-
-public class RegisterUser extends AsyncTask<String,Void, String> {
-    @Override
-    protected String doInBackground(String... strings) {
-        String fullname= strings[0];
-        String email= strings[1];
-        String password=strings[2];
-        String phonenumber=strings[3];
-
-
-        RequestBody formBody = new FormBody.Builder()
-                .add("fullname", fullname)
-                .add("email", email)
-                .add("password", password)
-                .add("phonenumber", phonenumber)
-                .build();
-
-
-        OkHttpClient okHttpClient=new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url_Register)
-                .post(formBody)
-                .build();
-
-
-        //checking server response and inserting data
-
-        Response response= null;
-        OkHttpClient client = new OkHttpClient();
-
-        try {
-            response= client.newCall(request).execute();
-            if(response.isSuccessful()){
-                String result= response.body().string();
-                showToast(result);
-
-                if(result.equals("\nUser registered successfully")){
-                    showToast("Registered Successfully");
-                    Intent intent= new Intent(SignUpActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-
-                else if (result.equals("\nUser already exists")){
-                    showToast("User Already Exist");
-
-                }
-                else{
-                    showToast("Oops! please try again!");
-                }
-            }
-            else {
-                throw new IOException("Unexpected code " + response);
-            }
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-        return null;
-    }
-}
 
     public void showToast(final String Text){
         this.runOnUiThread(new Runnable() {

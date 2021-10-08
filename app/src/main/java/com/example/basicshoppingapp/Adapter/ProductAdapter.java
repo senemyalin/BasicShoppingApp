@@ -1,5 +1,6 @@
 package com.example.basicshoppingapp.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,26 +13,33 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.basicshoppingapp.Activity.LoginActivity;
 import com.example.basicshoppingapp.Class.Product;
 import com.example.basicshoppingapp.Class.ProductCount;
 import com.example.basicshoppingapp.Fragment.ProductDetailsFragment;
-import com.example.basicshoppingapp.Fragment.ProductFragment;
 import com.example.basicshoppingapp.Fragment.ShoppingCartFragment;
+import com.example.basicshoppingapp.Helper;
 import com.example.basicshoppingapp.R;
+import com.example.basicshoppingapp.Response.AddShoppingCartResponse;
+import com.example.basicshoppingapp.Response.ShoppingCartResponse;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
+
+import static com.example.basicshoppingapp.Adapter.ShoppingCartAdapter.url_add_to_shoppingcart;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
-    List<Product> product;
+    List<Product> productList;
     LayoutInflater inflater;
-
+    Context ctx;
 
 
     public ProductAdapter(Context ctx, List<Product> product){
-        this.product= product;
+        this.productList = product;
         this.inflater = LayoutInflater.from(ctx);
+        this.ctx=ctx;
     }
 
     @NonNull
@@ -47,17 +55,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull ProductAdapter.ViewHolder holder, int position) {
-        holder.product_name.setText(product.get(position).getName());
-        holder.product_market.setText(product.get(position).getMarket());
-        holder.product_price.setText(product.get(position).getPrice());
+        holder.product_name.setText(productList.get(position).getName());
+        holder.product_market.setText(productList.get(position).getMarket());
+        holder.product_price.setText(productList.get(position).getPrice());
 
-        Picasso.get().load(product.get(position).getImage()).into(holder.product_image);
+        Picasso.get().load(productList.get(position).getImage()).into(holder.product_image);
 
 
         holder.product_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProductDetailsFragment.product = product.get(position);
+                ProductDetailsFragment.product = productList.get(position);
                 ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.constraintLayout, new ProductDetailsFragment()).addToBackStack("Product Fragment")
                         .commit();
@@ -65,24 +73,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             }
         });
 
-        holder.add_to_shopping_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.add_to_shopping_cart.setOnClickListener(v -> {
 
-                boolean found = false;
-                for(int i=0; i<ShoppingCartFragment.productShoppingCartList.size();i++){
-                    if(product.get(position).getName().equals(ShoppingCartFragment.productShoppingCartList.get(i).getProduct().getName())){
-                        ShoppingCartFragment.productShoppingCartList.get(i).addCount(1);
-                        found = true;
-                        break;
-                    }
+                if(LoginActivity.user_ID >0){
+                    String product_id = productList.get(position).getId();
+
+                    new Thread(() -> {
+                        HashMap<String, String> map = new HashMap<>();
+                        map.put("user_id", String.valueOf(LoginActivity.user_ID));
+                        map.put("product_id", product_id);
+                        map.put("count", 1 + "");
+                        AddShoppingCartResponse res = Helper.httpPost(AddShoppingCartResponse.class, url_add_to_shoppingcart, map);
+
+                        if (res == null) {
+                            // give the user an error
+                            return;
+                        }
+
+                    }).start();
                 }
-                if (!found)
-                {
-                    ProductCount product_count = new ProductCount(product.get(position),1);
-                    ShoppingCartFragment.productShoppingCartList.add(product_count);
-                }
-            }
+
+
         });
 
     }
@@ -90,7 +101,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public int getItemCount() {
 
-        return product.size();
+        return productList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

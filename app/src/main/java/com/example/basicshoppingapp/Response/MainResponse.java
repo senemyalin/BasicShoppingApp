@@ -1,4 +1,4 @@
-package com.example.basicshoppingapp;
+package com.example.basicshoppingapp.Response;
 
 import java.util.List;
 

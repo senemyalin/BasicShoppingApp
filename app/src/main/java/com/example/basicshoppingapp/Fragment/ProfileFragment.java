@@ -1,5 +1,6 @@
 package com.example.basicshoppingapp.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.basicshoppingapp.Activity.LoginActivity;
 import com.example.basicshoppingapp.Activity.SignUpActivity;
+import com.example.basicshoppingapp.Adapter.ShoppingCartAdapter;
 import com.example.basicshoppingapp.R;
 
 public class ProfileFragment extends Fragment {
@@ -95,7 +98,11 @@ public class ProfileFragment extends Fragment {
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                LoginActivity.user_ID = 0;
+                ShoppingCartFragment.productShoppingCartList.clear();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+               //? Intent intent = new Intent(ProfileFragment.)
             }
         });
 

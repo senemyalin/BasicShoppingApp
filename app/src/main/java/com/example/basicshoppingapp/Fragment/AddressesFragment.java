@@ -10,11 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.basicshoppingapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddressesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class AddressesFragment extends Fragment {
 
 

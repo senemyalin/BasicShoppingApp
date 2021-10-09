@@ -67,7 +67,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             public void onClick(View v) {
                 ProductDetailsFragment.product = productList.get(position);
                 ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.constraintLayout, new ProductDetailsFragment()).addToBackStack("Product Fragment")
+                        .replace(R.id.constraintLayout, new ProductDetailsFragment(),"Product Details Fragment").addToBackStack("Product Fragment")
                         .commit();
 
             }

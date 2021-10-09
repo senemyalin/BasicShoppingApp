@@ -63,7 +63,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.profile_constraintLayout, new FavouriteProductsFragment()).addToBackStack("Profile Fragment")
+                        .replace(R.id.container, new FavouriteProductsFragment()).addToBackStack("Profile Fragment")
                         .commit();
             }
         });

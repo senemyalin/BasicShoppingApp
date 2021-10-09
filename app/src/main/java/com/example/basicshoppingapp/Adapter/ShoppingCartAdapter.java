@@ -79,13 +79,9 @@ public class ShoppingCartAdapter extends BaseAdapter {
         img_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (LoginActivity.user_ID > 0) {
                     addToCart(position,1);
                 }
-
-                count.setText(String.valueOf(shoppingCartList.get(position).getCount()));
-                notifyDataSetChanged();
             }
         });
 
@@ -95,9 +91,6 @@ public class ShoppingCartAdapter extends BaseAdapter {
                 if (LoginActivity.user_ID > 0) {
                     addToCart(position,-1);
                 }
-
-                count.setText(String.valueOf(shoppingCartList.get(position).getCount()));
-                notifyDataSetChanged();
 
             }
         });
@@ -114,6 +107,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
             map.put("count", count + "");
             AddShoppingCartResponse res = Helper.httpPost(AddShoppingCartResponse.class, url_add_to_shoppingcart, map);
             if (res == null) {
+
                 // give the user an error
                 return;
             }

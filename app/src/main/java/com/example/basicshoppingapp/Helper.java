@@ -27,14 +27,12 @@ public class Helper {
                 .build();
         Response response;
         OkHttpClient client = new OkHttpClient();
-
         try {
             response= client.newCall(request).execute();
             if(response.isSuccessful()) {
                 String result = response.body().string();
 
                 Gson gson = new GsonBuilder().create();
-                System.out.println(result);
                 return gson.fromJson(result, (Type) tClass);
             }
             else {

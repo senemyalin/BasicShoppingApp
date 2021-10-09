@@ -56,32 +56,30 @@ public class ShoppingCartFragment extends Fragment {
             HashMap<String, String> map = new HashMap<>();
             map.put("user_id", String.valueOf(LoginActivity.user_ID));
             ShoppingCartResponse res = Helper.httpPost(ShoppingCartResponse.class, url_get_shoppingcart, map);
-
             if (res == null) {
                 // give the user an error
+
                 return;
             }
-
             List<Boolean> message = res.getMessage();
-
+            List<ProductCount> newList=new ArrayList<>();
             if (message.get(0)) {
                 user_product = res.getProduct();
                 user_product_count = res.getCount();
-
-                activity.runOnUiThread(list::clear);
                 for (int i = 0; i < user_product.size(); i++) {
-
                     ProductCount productCount = new ProductCount(user_product.get(i), user_product_count.get(i));
-                    activity.runOnUiThread(() -> list.add(productCount));
-                    System.out.println(productCount);
+                    newList.add(productCount);
                 }
-                activity.runOnUiThread(() -> {
-                    if (adapter == null)
-                        return;
-                    adapter.notifyDataSetInvalidated();
-                    adapter.notifyDataSetChanged();
-                });
+
             }
+            activity.runOnUiThread(() -> {
+
+                list.clear();
+                list.addAll(newList);
+
+                adapter.notifyDataSetInvalidated();
+                adapter.notifyDataSetChanged();
+            });
 
         }).start();
     }

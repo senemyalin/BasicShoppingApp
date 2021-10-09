@@ -38,8 +38,9 @@ public class ProductDetailsFragment extends Fragment {
 
     public static Product product; //seçilen product
 
-    static final String url_addFavouriteProduct = "http://192.168.1.104/LoginRegister/addFavouriteProduct.php";
+    public static final String url_addFavouriteProduct = "http://192.168.1.104/LoginRegister/addFavouriteProduct.php";
     static final String url_isFavouriteProduct = "http://192.168.1.104/LoginRegister/isFavouriteProduct.php";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

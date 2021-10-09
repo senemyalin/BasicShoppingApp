@@ -63,11 +63,16 @@ public class FavouriteProductsFragment extends Fragment {
 
             List<Boolean> message = res.getMessage();
 
+            List<Product> newList = res.getProduct();
             if (message.get(0)) {
-                activity.runOnUiThread(list::clear);
-                activity.runOnUiThread(() ->
-                        favourite_product = res.getProduct()
-                );
+
+                activity.runOnUiThread(() ->{
+                        list.clear();
+                        list.addAll(newList);
+
+                        adapter.notifyDataSetInvalidated();
+                        adapter.notifyDataSetChanged();
+                });
 
 
             }

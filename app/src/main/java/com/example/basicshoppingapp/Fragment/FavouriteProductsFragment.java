@@ -90,20 +90,20 @@ public class FavouriteProductsFragment extends Fragment {
             }
 
             List<Boolean> message = res.getMessage();
-
             List<Product> newList = res.getProduct();
+
+            activity.runOnUiThread(() ->{
+                list.clear();
+            });
             if (message.get(0)) {
-
                 activity.runOnUiThread(() ->{
-                        list.clear();
                         list.addAll(newList);
-
-                        adapter.notifyDataSetInvalidated();
-                        adapter.notifyDataSetChanged();
                 });
-
-
             }
+            activity.runOnUiThread(() ->{
+                adapter.notifyDataSetInvalidated();
+                adapter.notifyDataSetChanged();
+            });
 
         }).start();
     }
@@ -145,12 +145,9 @@ public class FavouriteProductsFragment extends Fragment {
 
             if(message.equals("Product is deleted from FP.")){
                 activity.runOnUiThread(()->{
-                    adapter.notifyDataSetInvalidated();
-                    adapter.notifyDataSetChanged();
 
                     updateFavouriteProduct(getActivity(),list,adapter);
                     Toast.makeText(getContext(), "Product is deleted from FP", Toast.LENGTH_LONG).show();
-
 
                 });
             }

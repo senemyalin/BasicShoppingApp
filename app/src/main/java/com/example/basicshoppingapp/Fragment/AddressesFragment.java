@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,8 +57,10 @@ public class AddressesFragment extends Fragment {
         create_new_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ADRES YARATMA SAYFASINA GEÇ YARATMADIN DAHA
 
+                ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, new NewAddressFragment()).addToBackStack("Favourite Products Fragment")
+                        .commit();
             }
         });
 
@@ -99,17 +102,18 @@ public class AddressesFragment extends Fragment {
             List<Boolean> message = res.getMessage();
             List<Address> newList = res.getAddress();
 
+            activity.runOnUiThread(() ->{
+                list.clear();
+            });
             if (message.get(0)) {
-
                 activity.runOnUiThread(() ->{
-                    list.clear();
                     list.addAll(newList);
-
-                    adapter.notifyDataSetInvalidated();
-                    adapter.notifyDataSetChanged();
                 });
-
             }
+            activity.runOnUiThread(() ->{
+                adapter.notifyDataSetInvalidated();
+                adapter.notifyDataSetChanged();
+            });
 
         }).start();
     }

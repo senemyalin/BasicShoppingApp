@@ -61,7 +61,6 @@ public class FavouriteProductsAdapter extends BaseAdapter {
         TextView details = (TextView) convertView.findViewById(R.id.txt_favourite_product_details);
         TextView price = (TextView) convertView.findViewById(R.id.txt_favourite_product_price);
         ImageView image = (ImageView) convertView.findViewById(R.id.img_favourite_products);
-        ImageView img_add_remove = (ImageView) convertView.findViewById(R.id.img_favourite_products_add);
 
         if (!favourite_products.isEmpty()) {
 

@@ -28,8 +28,6 @@ public class FavouriteProductsAdapter extends BaseAdapter {
     LayoutInflater inflater;
     Context ctx;
 
-    public static final String url_getFavouriteProduct = "http://192.168.1.104/LoginRegister/getFavouriteProduct.php";
-
     public FavouriteProductsAdapter(Context ctx, List<Product> favourite_products){
         super();
         this.ctx=ctx;
@@ -73,42 +71,10 @@ public class FavouriteProductsAdapter extends BaseAdapter {
             Picasso.get().load(favourite_products.get(position).getImage()).into(image);
         }
 
-        img_add_remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                remove_fav(favourite_products,position,ctx);
-
-            }
-        });
 
 
         return convertView;
     }
 
-    void remove_fav(List<Product> list, int position, Context ctx){
-        String product_id = list.get(position).getId();
 
-        new Thread(() -> {
-            HashMap<String, String> map = new HashMap<>();
-            map.put("user_id", String.valueOf(LoginActivity.user_ID));
-            map.put("product_id",product_id);
-            FavouriteProductResponse res = Helper.httpPost(FavouriteProductResponse.class, ProductDetailsFragment.url_addFavouriteProduct, map);
-
-            if (res == null) {
-                // give the user an error
-                return;
-            }
-
-            String message = res.getMessage();
-
-            if(message.equals("Product is deleted from FP.")){
-                ((Activity)this.inflater.getContext()).runOnUiThread(()->{
-                Toast.makeText(ctx, "Product is deleted from FP", Toast.LENGTH_LONG).show();
-                });
-            }
-
-
-        }).start();
-
-    }
 }

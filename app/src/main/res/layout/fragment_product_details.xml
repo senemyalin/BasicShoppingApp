@@ -36,7 +36,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/heart_icon_3351__1_" />
+            app:srcCompat="@drawable/ic_empty_star" />
 
         <ImageView
             android:id="@+id/img_product_details_image"

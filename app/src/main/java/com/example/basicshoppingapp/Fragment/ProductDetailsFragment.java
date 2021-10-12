@@ -128,13 +128,13 @@ public class ProductDetailsFragment extends Fragment {
             if(message.equals("Product is deleted from FP.")){
 
                 activity.runOnUiThread(()->{
-                    button.setImageResource(R.drawable.heart_icon_3351__1_);
+                    button.setImageResource(R.drawable.ic_empty_star);
                 });
 
             }
             else {
                 activity.runOnUiThread(()->{
-                    button.setImageResource(R.drawable.heart_png_44632__1_);
+                    button.setImageResource(R.drawable.ic_fully_star);
 
                 });
             }
@@ -156,7 +156,7 @@ public class ProductDetailsFragment extends Fragment {
 
             if(message.equals("true")){
                 activity.runOnUiThread(()->{
-                add_to_favourites.setImageResource(R.drawable.heart_png_44632__1_);
+                add_to_favourites.setImageResource(R.drawable.ic_fully_star);
                 });
             }
 

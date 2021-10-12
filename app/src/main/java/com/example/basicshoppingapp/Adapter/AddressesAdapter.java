@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.example.basicshoppingapp.Class.Address;
 import com.example.basicshoppingapp.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 

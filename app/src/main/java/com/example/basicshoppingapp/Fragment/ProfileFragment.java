@@ -81,7 +81,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.constraintLayout, new ChangePasswordFragment()).addToBackStack("Profile Fragment")
+                        .replace(R.id.container, new ChangePasswordFragment()).addToBackStack("Profile Fragment")
                         .commit();
             }
         });
@@ -90,7 +90,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.constraintLayout, new SupportFragment()).addToBackStack("Profile Fragment")
+                        .replace(R.id.container, new SupportFragment()).addToBackStack("Profile Fragment")
                         .commit();
             }
         });

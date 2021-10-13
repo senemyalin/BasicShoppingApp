@@ -1,10 +1,12 @@
 package com.example.basicshoppingapp.Fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,7 +19,16 @@ import androidx.fragment.app.FragmentActivity;
 import com.example.basicshoppingapp.Activity.LoginActivity;
 import com.example.basicshoppingapp.Activity.SignUpActivity;
 import com.example.basicshoppingapp.Adapter.ShoppingCartAdapter;
+import com.example.basicshoppingapp.Class.ProductCount;
+import com.example.basicshoppingapp.Class.User;
+import com.example.basicshoppingapp.Helper;
 import com.example.basicshoppingapp.R;
+import com.example.basicshoppingapp.Response.GetUserInfoResponse;
+import com.example.basicshoppingapp.Response.ShoppingCartResponse;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
@@ -32,6 +43,8 @@ public class ProfileFragment extends Fragment {
     ImageView profile_pic;
     ImageView edit_profile;
 
+
+    static final String url_getUserInfo="http://192.168.1.104/LoginRegister/getUserInfo.php";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +70,7 @@ public class ProfileFragment extends Fragment {
         profile_pic = view.findViewById(R.id.imageView_profile_pic);
         edit_profile = view.findViewById(R.id.img_editprofile);
 
-
+        getUserInfo(getActivity());
 
         favourite_products.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +119,41 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        edit_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, new ChangeUserInfoFragment()).addToBackStack("Profile Fragment")
+                        .commit();
+            }
+        });
+
         return view;
+    }
+
+    void getUserInfo(Activity activity){
+        new Thread(() -> {
+            HashMap<String, String> map = new HashMap<>();
+            map.put("user_id", String.valueOf(LoginActivity.user_ID));
+            GetUserInfoResponse res = Helper.httpPost(GetUserInfoResponse.class, url_getUserInfo, map);
+            if (res == null) {
+                // give the user an error
+
+                return;
+            }
+            List<Boolean> message = res.getMessage();
+            List<User> user_list = res.getUser();
+            if (message.get(0)) {
+                User user = user_list.get(0);
+                activity.runOnUiThread(() -> {
+                    name.setText(user.getFullname());
+                    email.setText(user.getEmail());
+                    phone_number.setText(String.valueOf(user.getPhonenumber()));
+                });
+            }
+
+
+
+        }).start();
     }
 }

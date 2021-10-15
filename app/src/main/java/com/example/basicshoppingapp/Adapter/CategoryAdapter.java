@@ -1,7 +1,5 @@
 package com.example.basicshoppingapp.Adapter;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.basicshoppingapp.Activity.MainActivity;
 import com.example.basicshoppingapp.Class.Category;
 import com.example.basicshoppingapp.Class.Product;
-import com.example.basicshoppingapp.Fragment.CategoryFragment;
 import com.example.basicshoppingapp.Fragment.ProductFragment;
 import com.example.basicshoppingapp.R;
 import com.squareup.picasso.Picasso;
@@ -26,7 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.basicshoppingapp.Activity.MainActivity.product;
+import static com.example.basicshoppingapp.Activity.MainActivity.productState;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
 
@@ -63,7 +58,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     chosenProducts.clear();
-                    for (Product prod : product.getItem()) {
+                    for (Product prod : productState.getItem()) {
 
                         if(prod.getCategory().equals(category.get(position).getName())) {
                             chosenProducts.add(prod);

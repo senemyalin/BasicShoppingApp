@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.basicshoppingapp.Activity.LoginActivity;
+import com.example.basicshoppingapp.Activity.MainActivity;
 import com.example.basicshoppingapp.Class.Product;
 import com.example.basicshoppingapp.Class.ProductCount;
 import com.example.basicshoppingapp.Fragment.ProductDetailsFragment;
@@ -67,7 +68,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             public void onClick(View v) {
                 ProductDetailsFragment.product = productList.get(position);
                 ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.constraintLayout, new ProductDetailsFragment(),"Product Details Fragment").addToBackStack("Product Fragment")
+                        .replace(R.id.container, new ProductDetailsFragment(),"Product Details Fragment").addToBackStack("Product Fragment")
                         .commit();
 
             }
@@ -89,7 +90,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                             // give the user an error
                             return;
                         }
-
+                        MainActivity.shoppingCartState.setItem(true);
                     }).start();
                 }
 

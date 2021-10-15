@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.security.identity.NoAuthenticationKeyAvailableException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.basicshoppingapp.Activity.LoginActivity;
+import com.example.basicshoppingapp.Activity.MainActivity;
 import com.example.basicshoppingapp.Adapter.AddressesAdapter;
 import com.example.basicshoppingapp.Class.Address;
 import com.example.basicshoppingapp.Class.Product;
@@ -46,7 +48,7 @@ public class AddressesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.address_listview_layout,container,false);
+        View view = inflater.inflate(R.layout.address_listview_layout, container, false);
 
         SwipeMenuListView addressList = (SwipeMenuListView) view.findViewById(R.id.address_listview);
         addressesAdapter = new AddressesAdapter(getActivity(), addresses);
@@ -72,7 +74,7 @@ public class AddressesFragment extends Fragment {
                 switch (index) {
                     case 0:
                         //make chosen address;
-                        NewAddressFragment.makeChosenAddress(addresses.get(position).getId(),getActivity());
+                        NewAddressFragment.makeChosenAddress(addresses.get(position).getId(), getActivity());
                         break;
                     case 1:
                         // delete
@@ -85,13 +87,13 @@ public class AddressesFragment extends Fragment {
         });
 
         if (LoginActivity.user_ID != 0) {
-            updateAddress(getActivity(),addresses,addressesAdapter);
+            updateAddress(getActivity(), addresses, addressesAdapter);
         }
 
         return view;
     }
 
-    public static void updateAddress(Activity activity, List<Address> list, BaseAdapter adapter){
+    public static void updateAddress(Activity activity, List<Address> list, BaseAdapter adapter) {
         new Thread(() -> {
             HashMap<String, String> map = new HashMap<>();
             map.put("user_id", String.valueOf(LoginActivity.user_ID));
@@ -109,15 +111,31 @@ public class AddressesFragment extends Fragment {
             List<Address> newList = res.getAddress();
 
 
-            activity.runOnUiThread(() ->{
-                list.clear();
-            });
+            activity.runOnUiThread(list::clear);
             if (message.get(0)) {
-                activity.runOnUiThread(() ->{
+                boolean chosen = false;
+                if (newList.size() > 0) {
+                    for (Address ad : newList)
+                        if (ad.getChosen().equals("True")) {
+                            chosen = true;
+                            MainActivity.addressState.setItem(ad);
+                            break;
+                        }
+                    if (!chosen) {
+                        NewAddressFragment.makeChosenAddress(newList.get(0).getId(), activity);
+                        newList.get(0).setChosen("True");
+                        MainActivity.addressState.setItem(newList.get(0));
+                    }
+                }
+                activity.runOnUiThread(() -> {
                     list.addAll(newList);
                 });
             }
-            activity.runOnUiThread(() ->{
+            activity.runOnUiThread(() -> {
+                if (list.size() == 0) {
+                    MainActivity.addressState.setItem(null);
+                    ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction().replace(R.id.container, new NewAddressFragment()).commit();
+                }
                 adapter.notifyDataSetInvalidated();
                 adapter.notifyDataSetChanged();
             });
@@ -125,8 +143,7 @@ public class AddressesFragment extends Fragment {
         }).start();
     }
 
-    void removeAddress(List<Address> list, int position, Activity activity, BaseAdapter adapter){
-
+    void removeAddress(List<Address> list, int position, Activity activity, BaseAdapter adapter) {
         String addressName = list.get(position).getAddressName();
         new Thread(() -> {
             HashMap<String, String> map = new HashMap<>();
@@ -142,11 +159,9 @@ public class AddressesFragment extends Fragment {
 
             String message = res.getMessage();
 
-            activity.runOnUiThread(()->{
-                adapter.notifyDataSetInvalidated();
-                adapter.notifyDataSetChanged();
 
-                updateAddress(getActivity(),list,adapter);
+            activity.runOnUiThread(() -> {
+                updateAddress(getActivity(), list, adapter);
                 Toast.makeText(getContext(), "Your address is deleted", Toast.LENGTH_LONG).show();
             });
 

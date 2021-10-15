@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.basicshoppingapp.Activity.LoginActivity;
 import com.example.basicshoppingapp.Activity.MainActivity;
 import com.example.basicshoppingapp.Adapter.ShoppingCartAdapter;
+import com.example.basicshoppingapp.Class.Address;
 import com.example.basicshoppingapp.Class.Product;
 import com.example.basicshoppingapp.Class.ProductCount;
 import com.example.basicshoppingapp.Helper;
@@ -27,7 +28,7 @@ import java.util.List;
 public class ShoppingCartFragment extends Fragment {
 
     ShoppingCartAdapter shoppingCartAdapter;
-    public static List<ProductCount> productShoppingCartList = new ArrayList<>(); //listelenen productlar
+    public List<ProductCount> productShoppingCartList = new ArrayList<>(); //listelenen productlar
 
     static final String url_get_shoppingcart = "http://192.168.1.104/LoginRegister/getShoppingCart.php";
     public static List<Product> user_product = new ArrayList<>();
@@ -36,8 +37,6 @@ public class ShoppingCartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        productShoppingCartList = new ArrayList<>();
         View view = inflater.inflate(R.layout.shoppingcart_listview_layout, container, false);
 
         ListView ShoppingCartList = (ListView) view.findViewById(R.id.shoppingcart_listview);
@@ -45,18 +44,25 @@ public class ShoppingCartFragment extends Fragment {
         ShoppingCartList.setAdapter(shoppingCartAdapter);
 
         Activity activity = getActivity();
+        Address address = MainActivity.addressState.getItem();
+        MainActivity.addressState.addListener(() -> {
+            if (LoginActivity.user_ID != 0 && MainActivity.addressState.getItem()!=null)
+                updateCart(activity, productShoppingCartList, shoppingCartAdapter, address == null ? null : String.valueOf(address.getId()));
+        });
         if (LoginActivity.user_ID != 0) {
-            MainActivity.addressState.addListener(() -> {
-                updateCart(activity, productShoppingCartList, shoppingCartAdapter, String.valueOf(MainActivity.addressState.getItem().getId()));
-            });
-            updateCart(getActivity(), productShoppingCartList, shoppingCartAdapter, String.valueOf(MainActivity.addressState.getItem().getId()));
+            updateCart(activity, productShoppingCartList, shoppingCartAdapter, address == null ? null : String.valueOf(address.getId()));
         }
-
         return view;
 
     }
 
     public static void updateCart(Activity activity, List<ProductCount> list, BaseAdapter adapter, String address_id) {
+        if (address_id == null) {
+            list.clear();
+            adapter.notifyDataSetInvalidated();
+            adapter.notifyDataSetChanged();
+            return;
+        }
         new Thread(() -> {
             HashMap<String, String> map = new HashMap<>();
             map.put("user_id", String.valueOf(LoginActivity.user_ID));
@@ -64,11 +70,10 @@ public class ShoppingCartFragment extends Fragment {
             ShoppingCartResponse res = Helper.httpPost(ShoppingCartResponse.class, url_get_shoppingcart, map);
             if (res == null) {
                 // give the user an error
-
                 return;
             }
             List<Boolean> message = res.getMessage();
-            List<ProductCount> newList=new ArrayList<>();
+            List<ProductCount> newList = new ArrayList<>();
             if (message.get(0)) {
                 user_product = res.getProduct();
                 user_product_count = res.getCount();

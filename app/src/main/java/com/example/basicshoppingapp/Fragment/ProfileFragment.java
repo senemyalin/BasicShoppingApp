@@ -6,25 +6,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.basicshoppingapp.Activity.LoginActivity;
-import com.example.basicshoppingapp.Activity.SignUpActivity;
-import com.example.basicshoppingapp.Adapter.ShoppingCartAdapter;
-import com.example.basicshoppingapp.Class.ProductCount;
+import com.example.basicshoppingapp.Activity.MainActivity;
 import com.example.basicshoppingapp.Class.User;
 import com.example.basicshoppingapp.Helper;
 import com.example.basicshoppingapp.R;
 import com.example.basicshoppingapp.Response.GetUserInfoResponse;
-import com.example.basicshoppingapp.Response.ShoppingCartResponse;
+import com.example.basicshoppingapp.State;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,7 +107,10 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 LoginActivity.user_ID = 0;
-                ShoppingCartFragment.productShoppingCartList.clear();
+                MainActivity.addressState=new State<>(null);
+                MainActivity.marketsState=new State<>(new ArrayList<>());
+                MainActivity.categoryState=new State<>(new ArrayList<>());
+                MainActivity.productState=new State<>(new ArrayList<>());
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
                //? Intent intent = new Intent(ProfileFragment.)

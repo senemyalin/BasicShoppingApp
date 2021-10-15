@@ -18,10 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.basicshoppingapp.Class.Address;
 import com.example.basicshoppingapp.Fragment.AddressesFragment;
+import com.example.basicshoppingapp.Fragment.NewAddressFragment;
 import com.example.basicshoppingapp.Helper;
 import com.example.basicshoppingapp.R;
 import com.example.basicshoppingapp.Response.GetAddressResponse;
 import com.example.basicshoppingapp.Response.IsChosenAddressResponse;
+import com.example.basicshoppingapp.Response.LoginResponse;
+import com.example.basicshoppingapp.Response.SignUpResponse;
 
 import org.json.JSONObject;
 
@@ -49,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
 
-    final String url_Login= "http://192.168.1.104/LoginRegister/login.php";
+    final String url_Login = "http://192.168.1.104/LoginRegister/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +86,12 @@ public class LoginActivity extends AppCompatActivity {
                 email = String.valueOf(edt_email.getText());
                 password = String.valueOf(edt_password.getText());
 
-                if(!email.equals("") && !password.equals("")) {
+                if (!email.equals("") && !password.equals("")) {
 
                     progressBar.setVisibility(View.GONE);
-                    new RegisterUser().execute(email, password);
+                    RegisterUser(email, password, LoginActivity.this);
 
-                }
-                else {
+                } else {
 
                     Toast.makeText(getApplicationContext(), "Password is wrong", Toast.LENGTH_SHORT).show();
 
@@ -101,69 +103,41 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void RegisterUser(String email, String password, Activity activity) {
+        new Thread(() -> {
+            HashMap<String, String> map = new HashMap<>();
+            map.put("email", email);
+            map.put("password", password);
 
-    public class RegisterUser extends AsyncTask<String,Void, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-            String email= strings[0];
-            String password=strings[1];
+            LoginResponse res = Helper.httpPost(LoginResponse.class, url_Login, map);
 
-
-            RequestBody formBody = new FormBody.Builder()
-                    .add("email", email)
-                    .add("password", password)
-                    .build();
-
-
-            OkHttpClient okHttpClient=new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(url_Login)
-                    .post(formBody)
-                    .build();
-
-
-            //checking server response and inserting data
-
-            Response response= null;
-            OkHttpClient client = new OkHttpClient();
-
-            try {
-                response= client.newCall(request).execute();
-                if(response.isSuccessful()) {
-                    String result = response.body().string();
-                 //   showToast(result);
-
-                    JSONObject responseJSON = new JSONObject(result);
-                    String message = responseJSON.getString("message");
-                //    showToast(message);
-
-                    if (message.equals("Logged in Successfully")) {
-                        showToast("Logged in Successfully");
-                        user_ID = Integer.valueOf(responseJSON.getString("userid"));
-                        getChosen(LoginActivity.this);
-
-                    }
-
-                    else {
-                        showToast("Email or Password is wrong. Try again.");
-
-                    }
-                }
-                else {
-                    throw new IOException("Unexpected code " + response);
-                }
-
+            if (res == null) {
+                // give the user an error
+                return;
             }
-            catch (Exception e){
-                e.printStackTrace();
+
+            String message = res.getMessage();
+            String user_id = res.getUserid();
+
+            if (message.equals("Full name, Email, Password or Phone number can not be empty")) {
+                activity.runOnUiThread(() -> {
+                    showToast("Full name, Email, Password or Phone number can not be empty");
+                });
+            } else if (message.equals("Logged in Successfully")) {
+                showToast("Logged in Successfully");
+                user_ID = Integer.valueOf(user_id);
+                getChosen(activity);
+
+            } else {
+                showToast("Email or Password is wrong. Try again.");
             }
 
 
-            return null;
-        }
+        }).start();
+
     }
 
-    public void showToast(final String Text){
+    public void showToast(final String Text) {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -171,7 +145,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    void getChosen(Activity activity){
+
+    void getChosen(Activity activity) {
         String url_isChosenAddress = "http://192.168.1.104/LoginRegister/isChosenAddress.php";
 
         new Thread(() -> {
@@ -189,19 +164,14 @@ public class LoginActivity extends AppCompatActivity {
             List<Address> newList = res.getAddress();
 
 
-            if (message.get(0)) {
-                activity.runOnUiThread(() ->{
-                    MainActivity.addressState.setItem(newList.get(0));
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                });
-            }
-            else{
-                activity.runOnUiThread(() ->{
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, new AddressesFragment()).commit();
-                });
-            }
+            activity.runOnUiThread(() -> {
+                if (message.get(0)) {
+                    MainActivity.addressState.setItem(newList.size() ==0 ? null :newList.get(0));
+                }
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            });
 
 
         }).start();

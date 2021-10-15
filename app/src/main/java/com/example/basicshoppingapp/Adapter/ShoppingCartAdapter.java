@@ -34,7 +34,12 @@ public class ShoppingCartAdapter extends BaseAdapter {
 
         this.shoppingCartList = shoppingCartList;
         this.inflater = LayoutInflater.from(ctx);
-
+        MainActivity.addressState.addListener(() -> {
+            ShoppingCartFragment.updateCart((Activity)ctx, shoppingCartList, this,MainActivity.addressState.getItem()==null?null:String.valueOf(MainActivity.addressState.getItem().getId()));
+        });
+        MainActivity.shoppingCartState.addListener(()->{
+            ShoppingCartFragment.updateCart((Activity)ctx, shoppingCartList, this,MainActivity.addressState.getItem()==null?null:String.valueOf(MainActivity.addressState.getItem().getId()));
+        });
     }
 
     @Override
@@ -114,9 +119,6 @@ public class ShoppingCartAdapter extends BaseAdapter {
             }
 
             ((Activity)this.inflater.getContext()).runOnUiThread(()->{
-                MainActivity.addressState.addListener(() -> {
-                    ShoppingCartFragment.updateCart((Activity)ctx, shoppingCartList, this,String.valueOf(MainActivity.addressState.getItem().getId()));
-                });
                 ShoppingCartFragment.updateCart((Activity)ctx, shoppingCartList, this,String.valueOf(MainActivity.addressState.getItem().getId()));
             });
         }).start();

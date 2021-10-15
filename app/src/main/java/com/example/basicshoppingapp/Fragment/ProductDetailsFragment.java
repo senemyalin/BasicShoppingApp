@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,6 +84,8 @@ public class ProductDetailsFragment extends Fragment {
         add_to_shopping_cart = view.findViewById(R.id.btn_product_details_add);
         add_to_favourites = view.findViewById(R.id.btn_product_details_fav);
 
+        product_details.setMovementMethod(new ScrollingMovementMethod());
+
         isFavouriteProduct(add_to_favourites,getActivity());
 
         product_name.setText(product.getName());
@@ -108,6 +111,7 @@ public class ProductDetailsFragment extends Fragment {
                                 // give the user an error
                                 return;
                             }
+                            getActivity().runOnUiThread(()->MainActivity.shoppingCartState.setItem(true));
                         }).start(); }
             }
         });

@@ -12,6 +12,7 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 import com.example.basicshoppingapp.Activity.LoginActivity;
+import com.example.basicshoppingapp.Activity.MainActivity;
 import com.example.basicshoppingapp.Adapter.ShoppingCartAdapter;
 import com.example.basicshoppingapp.Class.Product;
 import com.example.basicshoppingapp.Class.ProductCount;
@@ -43,18 +44,23 @@ public class ShoppingCartFragment extends Fragment {
         shoppingCartAdapter = new ShoppingCartAdapter(getActivity(), productShoppingCartList);
         ShoppingCartList.setAdapter(shoppingCartAdapter);
 
+        Activity activity = getActivity();
         if (LoginActivity.user_ID != 0) {
-            updateCart(getActivity(), productShoppingCartList, shoppingCartAdapter);
+            MainActivity.addressState.addListener(() -> {
+                updateCart(activity, productShoppingCartList, shoppingCartAdapter, String.valueOf(MainActivity.addressState.getItem().getId()));
+            });
+            updateCart(getActivity(), productShoppingCartList, shoppingCartAdapter, String.valueOf(MainActivity.addressState.getItem().getId()));
         }
 
         return view;
 
     }
 
-    public static void updateCart(Activity activity, List<ProductCount> list, BaseAdapter adapter) {
+    public static void updateCart(Activity activity, List<ProductCount> list, BaseAdapter adapter, String address_id) {
         new Thread(() -> {
             HashMap<String, String> map = new HashMap<>();
             map.put("user_id", String.valueOf(LoginActivity.user_ID));
+            map.put("address_id", address_id);
             ShoppingCartResponse res = Helper.httpPost(ShoppingCartResponse.class, url_get_shoppingcart, map);
             if (res == null) {
                 // give the user an error
@@ -73,7 +79,6 @@ public class ShoppingCartFragment extends Fragment {
 
             }
             activity.runOnUiThread(() -> {
-
                 list.clear();
                 list.addAll(newList);
 

@@ -71,6 +71,10 @@ public class AddressesFragment extends Fragment {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
+                        //make chosen address;
+                        NewAddressFragment.makeChosenAddress(addresses.get(position).getId(),getActivity());
+                        break;
+                    case 1:
                         // delete
                         removeAddress(addresses, position, getActivity(), addressesAdapter);
                         break;
@@ -95,12 +99,15 @@ public class AddressesFragment extends Fragment {
 
 
             if (res == null) {
+                System.out.println("burada hata varrrr");
+
                 // give the user an error
                 return;
             }
 
             List<Boolean> message = res.getMessage();
             List<Address> newList = res.getAddress();
+
 
             activity.runOnUiThread(() ->{
                 list.clear();
@@ -152,6 +159,23 @@ public class AddressesFragment extends Fragment {
         @Override
         public void create(SwipeMenu menu) {
 
+            // create "open" item
+            SwipeMenuItem chooseAddress = new SwipeMenuItem(
+                    getContext());
+            // set item background
+            chooseAddress.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+                    0xCE)));
+            // set item width
+            chooseAddress.setWidth(180);
+            // set item title
+            chooseAddress.setTitle("Choose");
+            // set item title fontsize
+            chooseAddress.setTitleSize(18);
+            // set item title font color
+            chooseAddress.setTitleColor(Color.WHITE);
+            // add to menu
+            menu.addMenuItem(chooseAddress);
+
             // create "delete" item
             SwipeMenuItem deleteItem = new SwipeMenuItem(getContext());
             // set item background
@@ -163,6 +187,7 @@ public class AddressesFragment extends Fragment {
             deleteItem.setIcon(R.drawable.ic_delete);
             // add to menu
             menu.addMenuItem(deleteItem);
+
         }
     };
 }

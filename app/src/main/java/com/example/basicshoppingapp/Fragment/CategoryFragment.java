@@ -20,13 +20,12 @@ public class CategoryFragment extends Fragment {
 
     RecyclerView categoryList;
     CategoryAdapter categoryAdapter;
-    List<Category> categories = MainActivity.category;
+    List<Category> categories = MainActivity.categoryState.getItem();
 
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
 
     }

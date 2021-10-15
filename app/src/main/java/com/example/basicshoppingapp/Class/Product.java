@@ -11,6 +11,9 @@ public class Product {
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("market_id")
+    @Expose
+    private String market_id;
     @SerializedName("market")
     @Expose
     private String market;
@@ -41,6 +44,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMarket_id() {
+        return market_id;
+    }
+
+    public void setMarket_id(String market_id) {
+        this.market_id = market_id;
     }
 
     public String getMarket() {

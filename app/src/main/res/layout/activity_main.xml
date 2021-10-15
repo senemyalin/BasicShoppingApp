@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TextView
         android:id="@+id/textView_food"
         android:layout_width="match_parent"
@@ -17,19 +18,30 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
-
+    <TextView
+        android:id="@+id/textView_chosen_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#4A4C4A"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:shadowColor="#9C2D2D"
+        android:text="ADDRESS"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_below="@id/textView_food"
+        />
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="602dp"
         android:layout_above="@id/bottomNav"
-        android:layout_below="@id/textView_food">
+        android:layout_below="@+id/textView_chosen_address"
+        >
 
     </FrameLayout>
 

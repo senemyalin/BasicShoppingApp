@@ -1,13 +1,25 @@
 package com.example.basicshoppingapp.Fragment;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +29,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.basicshoppingapp.Activity.LoginActivity;
+import com.example.basicshoppingapp.Activity.MainActivity;
 import com.example.basicshoppingapp.Adapter.ShoppingCartAdapter;
+import com.example.basicshoppingapp.Class.Market;
 import com.example.basicshoppingapp.Class.Product;
 import com.example.basicshoppingapp.Class.ProductCount;
 import com.example.basicshoppingapp.Helper;
@@ -27,9 +41,12 @@ import com.example.basicshoppingapp.Response.FavouriteProductResponse;
 import com.example.basicshoppingapp.Response.ShoppingCartResponse;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.Manifest.permission.CALL_PHONE;
+import static android.content.ContentValues.TAG;
 import static com.example.basicshoppingapp.Adapter.ShoppingCartAdapter.url_add_to_shoppingcart;
 
 
@@ -100,6 +117,53 @@ public class ProductDetailsFragment extends Fragment {
             public void onClick(View v) {
 
                 add_remove_fav(add_to_favourites,getActivity());
+
+            }
+        });
+
+
+        final CharSequence[] items = {"Call", "See on the map?", "Send an email", "Visit the Website"};
+
+        product_market.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Market market = MainActivity.marketsState.getItem().get(Integer.parseInt(product.getMarket_id()));
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(product.getMarket())
+                        .setItems(items, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case 0: // Call
+                                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                        callIntent.setData(Uri.parse("tel:"+ market.getPhone_number()));
+                                        startActivity(callIntent);
+                                        break;
+                                    case 1: // See on the map
+                                        Intent seeIntent = new Intent(android.content.Intent.ACTION_VIEW,
+                                        Uri.parse("http://maps.google.com/maps?saddr=20.344,34.34&daddr="+ market.getX_coordinate() +"," + market.getY_coordinate()));
+                                        startActivity(seeIntent);
+                                        break;
+                                    case 2: // Send an email
+                                        Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+                                        sendIntent.setData(Uri.parse("mailto:"));
+                                        sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {market.getEmail()});
+                                        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Get Information");
+                                        if (sendIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                                            startActivity(sendIntent);
+                                        }
+                                        break;
+                                    case 3: // Visit the Website
+                                        String url = market.getWebsite();
+                                        Intent i = new Intent(Intent.ACTION_VIEW);
+                                        i.setData(Uri.parse(url));
+                                        startActivity(i);
+                                        break;
+                                }
+
+                            }
+                        });
+
+                builder.create().show();
 
             }
         });

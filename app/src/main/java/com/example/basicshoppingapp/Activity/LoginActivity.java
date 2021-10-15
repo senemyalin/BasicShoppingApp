@@ -1,10 +1,12 @@
 package com.example.basicshoppingapp.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -14,11 +16,18 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.basicshoppingapp.Class.Address;
+import com.example.basicshoppingapp.Fragment.AddressesFragment;
+import com.example.basicshoppingapp.Helper;
 import com.example.basicshoppingapp.R;
+import com.example.basicshoppingapp.Response.GetAddressResponse;
+import com.example.basicshoppingapp.Response.IsChosenAddressResponse;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -131,10 +140,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (message.equals("Logged in Successfully")) {
                         showToast("Logged in Successfully");
                         user_ID = Integer.valueOf(responseJSON.getString("userid"));
+                        getChosen(LoginActivity.this);
 
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
                     }
 
                     else {
@@ -163,6 +170,41 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, Text, Toast.LENGTH_LONG).show();
             }
         });
+    }
+    void getChosen(Activity activity){
+        String url_isChosenAddress = "http://192.168.1.104/LoginRegister/isChosenAddress.php";
+
+        new Thread(() -> {
+            HashMap<String, String> map = new HashMap<>();
+            map.put("user_id", String.valueOf(LoginActivity.user_ID));
+            IsChosenAddressResponse res = Helper.httpPost(IsChosenAddressResponse.class, url_isChosenAddress, map);
+
+
+            if (res == null) {
+                // give the user an error
+                return;
+            }
+
+            List<Boolean> message = res.getMessage();
+            List<Address> newList = res.getAddress();
+
+
+            if (message.get(0)) {
+                activity.runOnUiThread(() ->{
+                    MainActivity.addressState.setItem(newList.get(0));
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
+            }
+            else{
+                activity.runOnUiThread(() ->{
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, new AddressesFragment()).commit();
+                });
+            }
+
+
+        }).start();
     }
 }
 

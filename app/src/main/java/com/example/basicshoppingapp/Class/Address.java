@@ -23,6 +23,9 @@ public class Address {
     @SerializedName("district")
     @Expose
     private String district;
+    @SerializedName("chosen")
+    @Expose
+    private String chosen;
 
     public String getId() {
         return id;
@@ -70,6 +73,14 @@ public class Address {
 
     public void setDistrict(String district) {
         this.district = district;
+    }
+
+    public String getChosen() {
+        return chosen;
+    }
+
+    public void setChosen(String chosen) {
+        this.chosen = chosen;
     }
 
 }

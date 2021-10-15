@@ -63,7 +63,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     chosenProducts.clear();
-                    for (Product prod : product) {
+                    for (Product prod : product.getItem()) {
 
                         if(prod.getCategory().equals(category.get(position).getName())) {
                             chosenProducts.add(prod);

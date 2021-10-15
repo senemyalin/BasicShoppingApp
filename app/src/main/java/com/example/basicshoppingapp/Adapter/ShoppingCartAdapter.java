@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.basicshoppingapp.Activity.LoginActivity;
+import com.example.basicshoppingapp.Activity.MainActivity;
 import com.example.basicshoppingapp.Class.ProductCount;
 import com.example.basicshoppingapp.Fragment.ShoppingCartFragment;
 import com.example.basicshoppingapp.Helper;
@@ -113,7 +114,10 @@ public class ShoppingCartAdapter extends BaseAdapter {
             }
 
             ((Activity)this.inflater.getContext()).runOnUiThread(()->{
-                ShoppingCartFragment.updateCart((Activity)ctx, shoppingCartList, this);
+                MainActivity.addressState.addListener(() -> {
+                    ShoppingCartFragment.updateCart((Activity)ctx, shoppingCartList, this,String.valueOf(MainActivity.addressState.getItem().getId()));
+                });
+                ShoppingCartFragment.updateCart((Activity)ctx, shoppingCartList, this,String.valueOf(MainActivity.addressState.getItem().getId()));
             });
         }).start();
     }

@@ -5,7 +5,6 @@
     android:id="@+id/profile_constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B3FBCF"
     tools:context=".Fragment.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,6 +13,7 @@
         android:layout_height="300dp"
         android:orientation="horizontal"
         android:layout_marginTop="15dp"
+        android:backgroundTint="#4B248E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,7 +24,7 @@
             android:id="@+id/imageView_profile_pic"
             android:layout_width="wrap_content"
             android:layout_height="160dp"
-            app:srcCompat="@android:drawable/sym_def_app_icon"
+            app:srcCompat="@drawable/rabbit"
 
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
             android:gravity="center"
             android:text="User Name"
             android:textSize="25dp"
-            android:textColor="@color/black"
+            android:textColor="#120130"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:text="e-mail@gmail.com"
             android:textSize="20dp"
-            android:textColor="@color/black"
+            android:textColor="#120130"
 
             app:layout_constraintTop_toBottomOf="@id/txt_username"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +76,7 @@
             android:textSize="20dp"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="12dp"
-            android:textColor="@color/black"
+            android:textColor="#120130"
 
 
             app:layout_constraintTop_toBottomOf="@id/txt_email"
@@ -156,11 +156,11 @@
                 android:id="@+id/btn_favourite_products"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:backgroundTint="@color/teal_700"
+                android:backgroundTint="#A88ADD"
                 android:drawableLeft="@android:drawable/btn_star_big_on"
 
                 android:text="Favourite Products"
-                android:textColor="@color/black">
+                android:textColor="#120130">
 
             </Button>
 
@@ -168,34 +168,34 @@
                 android:id="@+id/btn_addresses"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:backgroundTint="@color/teal_700"
+                android:backgroundTint="#A88ADD"
 
                 android:drawableLeft="@android:drawable/ic_menu_myplaces"
 
                 android:text="Addresses"
-                android:textColor="@color/black"></Button>
+                android:textColor="#120130"></Button>
 
             <Button
 
                 android:id="@+id/btn_change_password"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:backgroundTint="@color/teal_700"
+                android:backgroundTint="#A88ADD"
 
-                android:drawableLeft="@android:drawable/ic_lock_lock"
+                android:drawableLeft="@android:drawable/ic_lock_idle_lock"
 
                 android:text="Change Password"
-                android:textColor="@color/black"></Button>
+                android:textColor="#120130"></Button>
 
             <Button
                 android:id="@+id/btn_support"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:backgroundTint="@color/teal_700"
+                android:backgroundTint="#A88ADD"
                 android:drawableLeft="@android:drawable/ic_menu_info_details"
 
                 android:text="Support"
-                android:textColor="@color/black"></Button>
+                android:textColor="#120130"></Button>
         </LinearLayout>
 
     </ScrollView>

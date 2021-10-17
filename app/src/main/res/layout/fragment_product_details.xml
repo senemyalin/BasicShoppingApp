@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/yellow"
+        android:background="#D7F4F8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.589"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +39,7 @@
             app:srcCompat="@drawable/ic_empty_star" />
 
         <ImageView
+            android:background="@drawable/border"
             android:id="@+id/img_product_details_image"
             android:layout_width="206dp"
             android:layout_height="166dp"
@@ -74,7 +75,7 @@
             android:textColor="@color/purple_500"
             android:clickable="true"
             android:textSize="25dp"
-            android:background="@drawable/border"
+
 
             app:layout_constraintBottom_toTopOf="@id/txt_product_details_details"
             app:layout_constraintEnd_toEndOf="@id/constraintLayout"

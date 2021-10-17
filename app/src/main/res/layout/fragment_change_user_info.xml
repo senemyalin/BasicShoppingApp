@@ -12,6 +12,7 @@
         android:layout_height="400dp"
         android:orientation="horizontal"
         android:layout_marginTop="15dp"
+        android:backgroundTint="#A88ADD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,7 +23,7 @@
             android:id="@+id/imageView_profile_pic"
             android:layout_width="wrap_content"
             android:layout_height="160dp"
-            app:srcCompat="@android:drawable/sym_def_app_icon"
+            app:srcCompat="@drawable/rabbit"
 
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

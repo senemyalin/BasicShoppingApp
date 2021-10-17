@@ -34,9 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/chewyregular"
-            android:text="Categories"
-            android:textColor="@color/black"
+            android:fontFamily="serif-monospace"
+            android:text="CATEGORIES"
+            android:textColor="#966FDC"
             android:textSize="20dp"
 
             app:layout_constraintBottom_toTopOf="@+id/recyclerView_category"

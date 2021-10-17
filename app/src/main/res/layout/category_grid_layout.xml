@@ -9,19 +9,22 @@
         android:layout_width="wrap_content"
         android:layout_height="283dp"
         android:layout_margin="10dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardBackgroundColor="@color/teal_200">
+        app:cardBackgroundColor="#C9BDDF">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="162dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <ImageView
                 android:id="@+id/img_category_image"
                 android:layout_width="116dp"
                 android:layout_height="100dp"
+                android:background="@drawable/border"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.516"
@@ -63,7 +66,7 @@
                 android:id="@+id/btn_go"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/teal_700"
+                android:backgroundTint="#7A5FA8"
                 android:text="GO"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"

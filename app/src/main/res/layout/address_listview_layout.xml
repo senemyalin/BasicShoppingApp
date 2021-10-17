@@ -13,7 +13,8 @@
         android:drawableLeft="@drawable/ic_baseline_home"
 
         android:text="Add an address!"
-
+        android:textColor="#2C0377"
+        android:backgroundTint="#EFE7FD"
         app:layout_constraintBottom_toTopOf="@id/address_listview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

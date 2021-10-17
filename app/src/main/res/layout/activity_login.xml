@@ -4,32 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B3FBCF"
+    android:background="#4B248E"
     tools:context=".Fragment.ProfileFragment">
+
+    <TextView
+        android:id="@+id/txt_signup_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/chewyregular"
+        android:text="SIGN IN"
+        android:textColor="#BE9AFD"
+        android:textSize="30sp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView_profile_pic"
+        app:layout_constraintVertical_bias="0.289" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="274dp"
         android:layout_height="357dp"
 
-        android:background="#37DF81"
+        android:background="@drawable/border"
+        android:backgroundTint="#A88ADD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.66">
+        app:layout_constraintTop_toBottomOf="@+id/imageView_profile_pic"
+        app:layout_constraintVertical_bias="0.228">
 
         <EditText
             android:id="@+id/login_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="44dp"
             android:layout_marginTop="64dp"
-            android:background="@drawable/background_edit_text"
-            android:ems="10"
+            android:background="@drawable/border"
+            android:fontFamily="sans-serif-thin"
+            android:gravity="fill_vertical"
+            android:backgroundTint="#E3DBF1"
+            android:hint="Email"
             android:inputType="text"
             android:singleLine="false"
-            android:hint="Email"
+            android:textColorHint="#E6000000"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.515"
@@ -38,14 +57,15 @@
 
         <EditText
             android:id="@+id/login_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="44dp"
             android:layout_marginTop="136dp"
-            
-            android:background="@drawable/background_edit_text"
-            android:ems="10"
-            android:inputType="textPassword"
+            android:fontFamily="sans-serif-thin"
+            android:background="@drawable/border"
+            android:backgroundTint="#E3DBF1"
             android:hint="Password"
+            android:textColorHint="#E6000000"
+            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.515"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,16 +78,18 @@
             android:visibility="invisible"
 
             app:layout_constraintBottom_toTopOf="@id/btn_login"
-            app:layout_constraintTop_toBottomOf="@id/login_password"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"></ProgressBar>
+            app:layout_constraintTop_toBottomOf="@id/login_password"></ProgressBar>
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="104dp"
-            android:text="Login"
+            android:layout_marginBottom="100dp"
+            android:text="LOGIN"
+            android:backgroundTint="#4C18A6"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,10 +100,13 @@
             android:id="@+id/txt_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Register Here"
+            android:layout_marginTop="15dp"
             android:clickable="true"
+            android:text="Register Here"
+            android:textColor="#220753"
+            android:textSize="17dp"
             android:textStyle="bold"
+            android:fontFamily="@font/chewyregular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,21 +117,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Forget Password?"
             android:clickable="true"
+            android:text="Forget Password?"
+            android:fontFamily="@font/chewyregular"
+
+            android:textColor="#220753"
             android:textStyle="bold"
+            android:textSize="17dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_register" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="133dp"
-        android:layout_height="123dp"
-        android:layout_marginBottom="44dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/imageView_profile_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="160dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="10dp"
+
+        app:civ_border_color="#673AB7"
+        app:civ_border_width="4dp"
+        app:civ_shadow="true"
+        app:civ_shadow_color="#AFA4C3"
+        app:civ_shadow_radius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/star_big_on" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txt_signup_header"
+        app:srcCompat="@drawable/_afe74f0213a3dd1300e0faa458d532d" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
